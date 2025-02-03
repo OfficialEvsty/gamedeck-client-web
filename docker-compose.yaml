@@ -1,0 +1,25 @@
+version: '3'
+services:
+  envoy:
+    image: envoyproxy/envoy-dev:latest
+    environment:
+      - ENVOY_LOG_LEVEL=trace
+    networks:
+      - web-game-deck
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "remote-server:185.236.23.87"
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+  web:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    networks:
+      - web-game-deck
+
+networks:
+  web-game-deck:
+    driver: bridge
