@@ -1,22 +1,29 @@
 version: '3'
 services:
   envoy:
-    image: envoyproxy/envoy-dev:latest
+    build:
+      context: .
+      dockerfile: envoy.Dockerfile
     environment:
-      - ENVOY_LOG_LEVEL=trace
+      GRPC_SERVER_HOST: ${GRPC_SERVER_HOST}
+      GRPC_SERVER_PORT: ${GRPC_SERVER_PORT}
+      ENVOY_PORT: ${ENVOY_PORT}
     networks:
       - web-game-deck
     ports:
-      - "8080:8080"
+      - ${ENVOY_PORT}:${ENVOY_PORT}
     extra_hosts:
       - "remote-server:185.236.23.87"
     volumes:
-      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./envoy.template.yaml:/etc/envoy/envoy.template.yaml
   web:
     build:
       context: .
+    environment:
+      REACT_PORT: ${REACT_PORT}
+      ENVOY_PORT: ${ENVOY_PORT}
     ports:
-      - "3000:3000"
+      - ${REACT_PORT}:3000
     networks:
       - web-game-deck
 
