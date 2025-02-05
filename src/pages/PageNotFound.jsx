@@ -1,11 +1,20 @@
-import React from 'react'
+import React from 'react';
+import {Link} from "react-router-dom";
+import CatEyes from "../components/catEyes";
 
 
 function PageNotFound() {
     return (
-        <div>
+
+        <html>
+            <body>
+                <CatEyes />
             404 Page not found.
-        </div>
+            <span>
+                <Link to="/">Back Home</Link>
+            </span>
+            </body>
+        </html>
     )
 }
 

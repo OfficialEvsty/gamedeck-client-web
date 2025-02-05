@@ -18,8 +18,8 @@ function App() {
             <Route
                 path="/"
                 element={<Home />}
-                errorElement={<PageNotFound />}
             ></Route>
+            <Route path="*" element={ <PageNotFound/> } />
           </Routes>
         </header>
       <button onClick={RegisterOnClick}>Отправить запрос</button>
