@@ -9,10 +9,14 @@ function PageNotFound() {
         <html>
             <body>
                 <CatEyes />
-            404 Page not found.
-            <span>
-                <Link to="/">Back Home</Link>
-            </span>
+                <div className="h1 bold">
+                    <span className="text-frame">
+                        404 PAGE NOT FOUND
+                    </span>
+                </div>
+                <span className="h1">
+                    <Link to="/">Back Home</Link>
+                </span>
             </body>
         </html>
     )

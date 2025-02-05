@@ -5,7 +5,6 @@ const CatEyes = () => {
     useEffect(() => {
         const handleMouseMove = (event) => {
             const eyes = document.querySelectorAll(".pupil")
-            const cat = document.querySelectorAll(".cat");
             eyes.forEach((pupil) => {
                 const eye = pupil.parentElement, rect = eye.getBoundingClientRect();
                 const eyeCenterX = rect.left + rect.width / 2, eyeCenterY = rect.top + rect.height / 2;
@@ -31,6 +30,11 @@ const CatEyes = () => {
                 <div className="eyelid"></div>
             </div>
             <div className="cat-body"></div>
+            <div className="tail">
+                <div className="tail-medium">
+                    <div className="tail-tip"></div>
+                </div>
+            </div>
         </div>
     );
 };
