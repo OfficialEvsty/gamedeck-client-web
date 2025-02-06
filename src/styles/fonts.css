@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'NeueMontreal Regular';
+    src:  url('../fonts/NeueMontreal-Regular.ttf'),
+          url('../fonts/NeueMontreal-Regular.woff'),
+          url('../fonts/NeueMontreal-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NeueMontreal Bold';
+    src:  url('../fonts/NeueMontreal-Bold.ttf'),
+    url('../fonts/NeueMontreal-Bold.woff'),
+    url('../fonts/NeueMontreal-Bold.woff2');
+    font-weight: bold;
+    font-style: normal;
+}
