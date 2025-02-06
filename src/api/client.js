@@ -2,7 +2,7 @@
 const { AuthServiceClient } = require('../proto/sso_grpc_web_pb.js');
 const { RegisterRequest } = require('../proto/sso_pb.js');
 
-const client = new AuthServiceClient('http://localhost:8080', null, null);
+const client = new AuthServiceClient('http://localhost:8081', null, null);
 
 export default function RegisterOnClick() {
     const registerRequest = new RegisterRequest();
