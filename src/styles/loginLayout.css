@@ -20,7 +20,6 @@
     width: 100%;
     height: 100%;
     backdrop-filter: blur(20px); /* Размытие фона */
-    z-index: 1;
 }
 
 /* Для маленьких экранов */
@@ -44,7 +43,7 @@
     }
 }
 
-.login {
+.login-wrapper {
     position: relative;
     z-index: 2;
     width: 400px;
@@ -54,25 +53,49 @@
     gap: 48px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background-color: #0D0D0D; /* Добавьте цвет фона, если нужно */
 }
 
-.id-container {
-    gap: 57px;
-    height:230px;
+.login-header {
+    display: grid;
+    top: 0;
+    gap: 32px;
+}
+
+.login-title {
     width: 100%;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px;
 }
 
-.id-icon {
-    width: 100px;
-    height: 60px;
-    border-radius: 170px;
-    background: radial-gradient(#ffffff, #fd85ff, #9000ff)
+.login-body {
+
 }
 
-.id-icon-text {
-    font-size: 80px;
+.login-inputs {
+    display: grid;
+    gap: 8px;
+    width: 100%;
+    height: 168px;
+}
+
+.login-input {
+    min-width: 148px;
+    border-radius: 32px;
+    padding: 28px 24px 28px 24px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 24px;
+    background: #1C1C1C;
     color: #fff;
+    border: none;
 }
+
+input::placeholder {
+    color: #9B9B9B;
+    font-size: 18px;
+    line-height: 24px;
+}
+
