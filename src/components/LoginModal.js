@@ -22,9 +22,11 @@ const LoginForm = () => {
                     <input type='text' placeholder='Введите пароль' className='login-input' {...register('password', { required: "Введите пароль", minLength: { value: 8, message: "Минимальная длина пароля - 8 символов"}})}/>
                     {errors.password && <p className='email-error'>{errors.password.message}</p>}
                 </div>
-                <button className='form-btn login' type='submit'>Войти</button>
-                <button className='form-btn register'>Зарегистрироваться</button>
-                <a className='form-ref' href="/*">Не помню пароль</a>
+                <div className='login-buttons'>
+                    <button className='form-btn login' type='submit'>Войти</button>
+                    <button className='form-btn register'>Зарегистрироваться</button>
+                    <a className='form-ref' href="/*">Не помню пароль</a>
+                </div>
             </div>
         </form>
 

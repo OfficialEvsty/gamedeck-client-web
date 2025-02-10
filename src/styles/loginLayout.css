@@ -57,6 +57,7 @@
 }
 
 .login-header {
+    height: 104px;
     display: grid;
     top: 0;
     gap: 32px;
@@ -97,5 +98,20 @@ input::placeholder {
     color: #9B9B9B;
     font-size: 18px;
     line-height: 24px;
+}
+
+.form-btn {
+    display: grid;
+    min-width: 148px;
+    height: 56px;
+    border-radius: 24px;
+    padding: 16px 24px 16px 24px;
+    gap: 10px;
+}
+
+
+.login-buttons {
+    display: grid;
+    gap: 8px;
 }
 
