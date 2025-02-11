@@ -6,7 +6,7 @@
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(../assets/images/bg_login_layout.jpeg);
+    background-image: url(../images/bg_login_layout.jpeg);
     justify-content: center;
     align-items: center;
     display: flex;
@@ -25,29 +25,28 @@
 /* Для маленьких экранов */
 @media (max-width: 768px) {
     .login-layout {
-        background-image: url('../assets/images/bg_login_layout_small.jpg');
+        background-image: url('../images/bg_login_layout_small.jpg');
     }
 }
 
 /* Для средних экранов */
 @media (min-width: 769px) and (max-width: 1024px) {
     .login-layout {
-        background-image: url('../assets/images/bg_login_layout_medium.jpg');
+        background-image: url('../images/bg_login_layout_medium.jpg');
     }
 }
 
 /* Для больших экранов */
 @media (min-width: 1025px) {
     .container {
-        background-image: url('../assets/images/bg_login_layout.jpeg');
+        background-image: url('../images/bg_login_layout.jpeg');
     }
 }
 
 .login-wrapper {
     position: relative;
     z-index: 2;
-    width: 400px;
-    height: 632px;
+    width: 320px;
     border-radius: 48px;
     padding: 40px;
     gap: 48px;
@@ -103,10 +102,13 @@ input::placeholder {
 .form-btn {
     display: grid;
     min-width: 148px;
-    height: 56px;
     border-radius: 24px;
     padding: 16px 24px 16px 24px;
     gap: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
 }
 
 
@@ -115,3 +117,62 @@ input::placeholder {
     gap: 8px;
 }
 
+.form-ref {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #E6E6E6;
+    text-decoration: none;
+}
+
+.ref-container {
+    display: grid;
+    min-width: 148px;
+    border-radius: 24px;
+    padding: 16px 24px 16px 24px;
+    gap: 10px;
+}
+
+.forgot {
+    background: #0D0D0D;
+    color: #E6E6E6;
+}
+
+.register {
+    background: #1C1C1C;
+    color: #E6E6E6;
+}
+
+.register:hover {
+    background: #262626;
+}
+
+.forgot:hover {
+    background: #1C1C1C;
+}
+
+input:hover {
+    background: #262626;
+}
+
+input:focus {
+    background: #1C1C1C;
+    transition: ease-out 200ms ;
+}
+
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+    transform: translateY(10px) scale(0.75);
+}
+
+label {
+    transition: transform 200ms, color 200ms;
+}
+
+.input-wrapper {
+    display: block;
+}
+
+.placeholder {
+    position: absolute;
+}

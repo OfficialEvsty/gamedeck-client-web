@@ -1,3 +1,8 @@
+.logo-icon {
+    display: block;
+    margin: auto;
+}
+
 p {
     margin: 0;
     font-weight: 500;
