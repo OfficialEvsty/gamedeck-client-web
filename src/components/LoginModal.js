@@ -46,7 +46,7 @@ const LoginForm = () => {
                             required: "",
                             pattern: {value: /^\S+@\S+$/i}
                         })}/>
-                        <label htmlFor='email' className='placeholder'>Введите email</label>
+                        <label htmlFor='login' className='placeholder'>Введите email</label>
                         <button className='btn cncl-icon' onClick={clearLoginInput}>
                             <img src="/assets/svg/Close.svg" alt="Показать пароль" />
                         </button>
