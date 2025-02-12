@@ -84,13 +84,13 @@
 .login-input {
     min-width: 148px;
     border-radius: 32px;
-    padding: 28px 24px 28px 24px;
+    padding: 28px 0 28px 0;
     text-align: center;
     font-size: 18px;
     line-height: 24px;
     background: #1C1C1C;
     color: #fff;
-    border: none;
+    border: 2px solid transparent;
 }
 
 input::placeholder {
@@ -162,17 +162,74 @@ input:focus {
 
 input:focus ~ label,
 input:not(:placeholder-shown) ~ label {
-    transform: translateY(10px) scale(0.75);
+    transform: translateY(-75%) scale(0.75);
+}
+
+input:focus ~ .btn,
+input:not(:placeholder-shown) ~ .btn {
+    opacity: 1;
+    z-index: 100;
 }
 
 label {
-    transition: transform 200ms, color 200ms;
+    transition: transform 200ms;
 }
 
-.input-wrapper {
-    display: block;
+.btn {
+    transition: opacity 200ms;
 }
 
-.placeholder {
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group>label {
     position: absolute;
+    align-self: auto;
+    width: 100%;
+    justify-self: center;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    opacity: 0.5;
+
+}
+
+.input-group>input {
+    width: 100%;
+    outline: none;
+}
+
+.btn {
+    position: absolute;
+
+}
+
+.input-group>.btn {
+    position: absolute;
+    align-self: center;
+    background: none;
+    border: none;
+    left: 80%;
+    z-index: -1;
+}
+
+
+.input-error {
+    animation: error_animation ease-out 1000ms;
+}
+
+@keyframes error_animation {
+    0% {
+        border-radius: 0;
+        border: 2px solid cyan;
+        background-color: transparent;
+    }
+    100% {
+        border-radius: 0;
+        border: 2px solid cyan;
+        background-color: darkcyan;
+    }
 }
