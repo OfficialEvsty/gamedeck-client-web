@@ -84,13 +84,19 @@
 .login-input {
     min-width: 148px;
     border-radius: 32px;
-    padding: 28px 0 28px 0;
+    padding: 26px 0 26px 0;
     text-align: center;
     font-size: 18px;
     line-height: 24px;
     background: #1C1C1C;
     color: #fff;
     border: 2px solid transparent;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 input::placeholder {

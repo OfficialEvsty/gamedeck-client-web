@@ -42,7 +42,7 @@ const LoginForm = () => {
                 </div>
                 <div className='login-inputs'>
                     <div className='input-group'>
-                        <input id='login' type='text' placeholder=' ' className={`login-input${animate ? ' input-error' : ''}`} {...register('email', {
+                        <input id='login' type='text' placeholder=' ' className={`login-input truncate${animate ? ' input-error' : ''}`} {...register('email', {
                             required: "",
                             pattern: {value: /^\S+@\S+$/i}
                         })}/>
@@ -53,7 +53,7 @@ const LoginForm = () => {
                     </div>
 
                     <div className='input-group'>
-                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className={`login-input${animate ? ' input-error' : ''}`} {...register('password', {
+                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className={`login-input truncate${animate ? ' input-error' : ''}`} {...register('password', {
                             required: "",
                             minLength: {value: 8}
                         })}/>
