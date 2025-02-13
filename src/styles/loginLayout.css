@@ -203,7 +203,7 @@ label {
 
 .btn {
     transition: opacity 200ms;
-    font-family: Arial, sans-serif;
+    cursor: pointer
 }
 
 .input-group {
@@ -243,11 +243,6 @@ label {
 .input-group>input {
     width: 100%;
     outline: none;
-}
-
-.btn {
-    position: absolute;
-
 }
 
 .input-group>.btn {

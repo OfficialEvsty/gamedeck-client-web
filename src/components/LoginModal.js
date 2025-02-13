@@ -2,11 +2,14 @@ import '../styles/loginLayout.css'
 import IDIcon from "./IdIcon";
 import { useForm } from 'react-hook-form'
 import React, {useRef, useState} from "react";
+import {useAuth} from "../storage/AuthContext"
+import Login from "../api/auth/auth"
 
 const LoginForm = () => {
     const { register, handleSubmit, setValue, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [animate, setAnimate] = useState(false);
+    const { accessToken, setAccessToken } = useAuth();
     const containerRefs = useRef([React.createRef(), React.createRef()]);
 
     const validate = () => {
@@ -16,8 +19,9 @@ const LoginForm = () => {
         }
     }
     const onSubmit = (data) => {
-
         console.log("Submitted", data)
+        Login(data.email, data.password, 1);
+        setAccessToken(accessToken)
     }
 
     const onInputGroupClick = (index) => {

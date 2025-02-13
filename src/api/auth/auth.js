@@ -2,7 +2,7 @@ const { AuthServiceClient } = require('../../proto/sso_grpc_web_pb.js');
 const { RegisterRequest, LoginRequest,  RefreshTokenRequest, LogoutAllRequest, IsAdminRequest} = require('../../proto/sso_pb.js');
 
 // Auth client to communicate with sso auth service
-export const authClient = new AuthServiceClient('http://localhost:' + process.env.ENVOY_PORT, null, null);
+export const authClient = new AuthServiceClient('http://localhost:8081', null, null);
 
 // Creates a register request
 export const registerRequest = (email, password) => {
@@ -13,13 +13,27 @@ export const registerRequest = (email, password) => {
 }
 
 // Creates a login request
-export const loginRequest = (email, password, appId) => {
+const loginRequest = (email, password, appId) => {
     const request = new LoginRequest();
     request.setEmail(email);
     request.setPassword(password);
     request.setAppId(appId);
     return request;
 }
+
+const Login = (email, password, appId) => {
+    const request = loginRequest(email, password, appId);
+    const metadata = { 'Content-Type': 'application/grpc-web' };
+    authClient.login(request, metadata, (err, response) => {
+        if (err) {
+            console.error("Login error: "+ err);
+        }
+        else {
+            console.log(response.toObject());
+        }
+    })
+}
+export default Login;
 
 export const logoutRequest = (userId, refresh = null) => {
     const request = new LogoutAllRequest();
