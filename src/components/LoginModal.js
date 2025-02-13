@@ -1,12 +1,14 @@
 import '../styles/loginLayout.css'
 import IDIcon from "./IdIcon";
 import { useForm } from 'react-hook-form'
-import React, { useState } from "react";
+import React, {useRef, useState} from "react";
 
 const LoginForm = () => {
     const { register, handleSubmit, setValue, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [animate, setAnimate] = useState(false);
+    const containerRefs = useRef([React.createRef(), React.createRef()]);
+
     const validate = () => {
         if (errors.email || errors.password) {
             setAnimate(true);
@@ -16,6 +18,13 @@ const LoginForm = () => {
     const onSubmit = (data) => {
 
         console.log("Submitted", data)
+    }
+
+    const onInputGroupClick = (index) => {
+        const input = containerRefs.current[index].current.querySelector("input");
+        if (input) {
+            input.focus();
+        }
     }
 
     function togglePasswordVisibility() {
@@ -41,9 +50,10 @@ const LoginForm = () => {
                     <p className='login-title'>Войдите в систему</p>
                 </div>
                 <div className='login-inputs'>
-                    <div className='input-group'>
-                        <input id='login' type='text' placeholder=' ' className={`login-input truncate${animate ? ' input-error' : ''}`} {...register('email', {
-                            required: "",
+                    <div className='input-group' onClick={ () => onInputGroupClick (0)} ref={containerRefs.current[0]} key='0'>
+                        <div className={`overlay${animate ? ' input-error' : ''}`}/>
+                        <input id='login' type='text' placeholder=' ' className='login-input truncate' {...register('email', {
+                            required: true,
                             pattern: {value: /^\S+@\S+$/i}
                         })}/>
                         <label htmlFor='login' className='placeholder'>Введите email</label>
@@ -52,9 +62,10 @@ const LoginForm = () => {
                         </button>
                     </div>
 
-                    <div className='input-group'>
-                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className={`login-input truncate${animate ? ' input-error' : ''}`} {...register('password', {
-                            required: "",
+                    <div className='input-group' onClick={ () => onInputGroupClick(1) } ref={containerRefs.current[1]} key='1'>
+                        <div className={`overlay${animate ? ' input-error' : ''}`}/>
+                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className='login-input truncate' {...register('password', {
+                            required: true,
                             minLength: {value: 8}
                         })}/>
                         <label htmlFor='password' className='placeholder'>Введите пароль</label>

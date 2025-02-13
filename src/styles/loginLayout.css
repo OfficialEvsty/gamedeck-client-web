@@ -81,18 +81,18 @@
     height: 168px;
 }
 
+
 .login-input {
-    min-width: 148px;
-    border-radius: 32px;
-    padding: 26px 0 26px 0;
+    position: relative;
     text-align: center;
     font-size: 18px;
     line-height: 24px;
-    background: #1C1C1C;
+    background: none;
+    border: none;
     color: #fff;
-    border: 2px solid transparent;
+    margin: 0 20% 0 20%;
+    top: 40%;
 }
-
 .truncate {
     white-space: nowrap;
     overflow: hidden;
@@ -115,6 +115,7 @@ input::placeholder {
     font-size: 16px;
     line-height: 24px;
     border: none;
+    cursor: pointer;
 }
 
 
@@ -157,18 +158,36 @@ input::placeholder {
     background: #1C1C1C;
 }
 
-input:hover {
+
+.input-group:hover,
+.input-group:hover .login-input,
+.input-group:hover input:-webkit-autofill{
     background: #262626;
+    box-shadow: 0 0 0 30px #262626 inset !important;
+    -webkit-text-fill-color: #E6E6E6 !important;
 }
+
 
 input:focus {
     background: #1C1C1C;
-    transition: ease-out 200ms ;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    box-shadow: 0 0 0 30px #1C1C1C inset !important;
+    -webkit-text-fill-color: #E6E6E6 !important;
+}
+
+input:-webkit-autofill:hover {
+    box-shadow: 0 0 0 30px #262626 inset !important;
+    -webkit-text-fill-color: #E6E6E6 !important;
+}
+
 
 input:focus ~ label,
 input:not(:placeholder-shown) ~ label {
-    transform: translateY(-75%) scale(0.75);
+    transform: translateY(-40%) scale(0.75);
 }
 
 input:focus ~ .btn,
@@ -179,16 +198,34 @@ input:not(:placeholder-shown) ~ .btn {
 
 label {
     transition: transform 200ms;
+    cursor: pointer;
 }
 
 .btn {
     transition: opacity 200ms;
+    font-family: Arial, sans-serif;
 }
 
 .input-group {
     position: relative;
     display: flex;
     align-items: center;
+    min-width: 148px;
+    border-radius: 32px;
+    padding: 25px 0 25px 0;
+    background: #1C1C1C;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.input-group::before {
+    content: ''; /* Обязательное свойство для псевдоэлемента */
+    position: absolute; /* Абсолютное позиционирование */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Высокий z-index, чтобы перекрыть другие элементы */
 }
 
 .input-group>label {
@@ -222,20 +259,33 @@ label {
     z-index: -1;
 }
 
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: darkcyan;
+    border: 2px solid cyan;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+}
 
 .input-error {
     animation: error_animation ease-out 1000ms;
+    opacity: 0.6;
+    visibility: visible;
+    z-index: 10;
 }
 
 @keyframes error_animation {
     0% {
-        border-radius: 0;
-        border: 2px solid cyan;
         background-color: transparent;
     }
     100% {
-        border-radius: 0;
-        border: 2px solid cyan;
         background-color: darkcyan;
     }
 }
