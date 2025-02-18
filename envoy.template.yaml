@@ -76,7 +76,7 @@ static_resources:
                           end
                           if refresh_token then
                             response_handle:logInfo("Refresh token found: " .. refresh_token)
-                            response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; Domain=" .. client_ip .. "; HttpOnly; Path=/; SameSite=Strict; Expires=" .. expires)
+                            response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; HttpOnly; Path=/; SameSite=Strict; Expires=" .. expires)
                           else
                             response_handle:logWarn("No refresh token found in headers")
                           end
