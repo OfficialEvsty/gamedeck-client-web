@@ -17,6 +17,7 @@ static_resources:
               typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
                 codec_type: AUTO
+                use_remote_address: true
                 stat_prefix: ingress_http
                 access_log:
                   - name: envoy.access_loggers.stdout
@@ -58,9 +59,8 @@ static_resources:
                           local refresh_token = response_handle:headers():get("refresh-token")
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
                           local host = response_handle:headers():get(":authority") or response_handle:headers():get("Host")
-    
                           if not host then
-                          host = "localhost"
+                            host = "localhost"
                           end
                           if refresh_token then
                             response_handle:logInfo("Refresh token found: " .. refresh_token)
