@@ -59,7 +59,7 @@ static_resources:
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
                           if refresh_token then
                             response_handle:logInfo("Refresh token found: " .. refresh_token)
-                            response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; HttpOnly; SameSite=Strict; Expires=" .. expires)
+                            response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; HttpOnly; Path=/; SameSite=Strict; Expires=" .. expires)
                           else
                             response_handle:logWarn("No refresh token found in headers")
                           end
