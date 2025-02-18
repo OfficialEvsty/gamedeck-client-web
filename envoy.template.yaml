@@ -58,22 +58,6 @@ static_resources:
                         function envoy_on_response(response_handle)
                           local refresh_token = response_handle:headers():get("refresh-token")
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
-                          local client_ip = response_handle:headers():get("X-Forwarded-For")
-                          if client_ip then
-                             response_handle:logInfo("Client IP: " .. client_ip)
-                          end
-                          -- Если заголовок X-Forwarded-For отсутствует, используем IP из соединения
-                          if not client_ip then
-                            client_ip = response_handle:streamInfo():downstreamRemoteAddress()
-                            -- Извлекаем только IP (без порта)
-                            client_ip = client_ip:match("([^:]+)")
-                          end
-                      
-                          -- Если IP-адрес не найден, используем localhost как fallback
-                          if not client_ip then
-                            response_handle:logWarn("Client IP: localhost")
-                            client_ip = "localhost"
-                          end
                           if refresh_token then
                             response_handle:logInfo("Refresh token found: " .. refresh_token)
                             response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; HttpOnly; Path=/; SameSite=Strict; Expires=" .. expires)
