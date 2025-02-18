@@ -34,6 +34,7 @@ static_resources:
                         allow_origin_string_match:
                           - prefix: "*"
                         allow_methods: "POST, GET, OPTIONS"
+                        allow_credentials: true
                         allow_headers: "Content-Type, Authorization, x-user-agent, x-grpc-web"
                         expose_headers: "grpc-status, grpc-message"
                         max_age: "86400"
@@ -49,6 +50,20 @@ static_resources:
                   - name: envoy.filters.http.cors
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.cors.v3.Cors
+                  - name: envoy.filters.http.lua
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+                      inline_code: |
+                        function envoy_on_response(response_handle)
+                          local refresh_token = response_handle:headers():get("refresh-token")
+                          local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
+                          if refresh_token then
+                            response_handle:logInfo("Refresh token found: " .. refresh_token)
+                            response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; HttpOnly; SameSite=Strict; Expires=" .. expires)
+                          else
+                            response_handle:logWarn("No refresh token found in headers")
+                          end
+                        end
                   - name: envoy.filters.http.router
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
