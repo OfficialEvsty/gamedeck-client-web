@@ -19,9 +19,9 @@ static_resources:
               common_tls_context:
                 tls_certificates:
                   - certificate_chain:
-                      filename: ${CERTIFICATE_CHAIN_FILENAME_PATH}
+                      filename: "/var/www/certbot/live/teamspot.online/fullchain.pem"
                     private_key:
-                      filename: ${PRIVATE_KEY_FILENAME_PATH}
+                      filename: "/var/www/certbot/live/teamspot.online/privkey.pem"
         - filters:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
