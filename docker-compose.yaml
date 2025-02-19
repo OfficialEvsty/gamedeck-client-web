@@ -8,6 +8,10 @@ services:
       GRPC_SERVER_HOST: $GRPC_SERVER_HOST
       GRPC_SERVER_PORT: $GRPC_SERVER_PORT
       ENVOY_PORT: $ENVOY_PORT
+      CERTIFICATE_CHAIN_FILENAME_PATH: $CERTIFICATE_CHAIN_FILENAME_PATH
+      PRIVATE_KEY_FILENAME_PATH: $PRIVATE_KEY_FILENAME_PATH
+      BACKEND_DOMAIN: $BACKEND_DOMAIN
+      DOMAIN: $DOMAIN
     env_file:
       - .env
     networks:
@@ -19,7 +23,6 @@ services:
       - ./certbot/www/:/var/www/certbot/:ro
     depends_on:
       - certbot
-    restart: unless-stopped
 
   certbot:
     image: certbot/certbot:latest
