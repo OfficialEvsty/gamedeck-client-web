@@ -12,6 +12,7 @@ services:
       PRIVATE_KEY_FILENAME_PATH: $PRIVATE_KEY_FILENAME_PATH
       BACKEND_DOMAIN: $BACKEND_DOMAIN
       DOMAIN: $DOMAIN
+      CERTBOT_PORT: $CERTBOT_PORT
     env_file:
       - .env
     networks:

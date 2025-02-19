@@ -5,23 +5,28 @@ admin:
       address: 0.0.0.0
       port_value: 9901
 static_resources:
+  secrets:
+    - name: server_cert
+      tls_certificate:
+        certificate_chain:
+          filename: /etc/certs/live/teamspot.online/fullchain.pem
+        private_key:
+          filename: /etc/certs/live/teamspot.online/privkey.pem
   listeners:
     - name: listener_0
       address:
         socket_address:
           address: 0.0.0.0
-          port_value: ${ENVOY_PORT}
+          port_value: ${CERTBOT_PORT}
       filter_chains:
         - transport_socket:
             name: envoy.transport_sockets.tls
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
               common_tls_context:
-                tls_certificates:
-                  - certificate_chain:
-                      filename: "/etc/certs/var/www/certbot/live/teamspot.online/fullchain.pem"
-                    private_key:
-                      filename: "/etc/certs/var/www/certbot/live/teamspot.online/privkey.pem"
+                tls_certificate_sds_secret_configs:
+                  - name: server_cert
+
         - filters:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
@@ -40,7 +45,7 @@ static_resources:
                   name: local_route
                   virtual_hosts:
                     - name: local_service
-                      domains: [${DOMAIN}]
+                      domains: [${DOMAIN}, ${OTHER_LEVEL_DOMAINS}]
                       cors:
                         allow_origin_string_match:
                           - prefix: "*"
