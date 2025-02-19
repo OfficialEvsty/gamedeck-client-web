@@ -1,5 +1,15 @@
 version: '3'
 services:
+  certbot:
+    image: certbot/dns-cloudflare
+    container_name: certbot
+    volumes:
+      - certs:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+    entrypoint: ["certbot", "certonly", "--dns-cloudflare", "--dns-cloudflare-credentials", "/cfg/cloudflare.ini", "-d", "${DOMAIN}", "--email", "${EMAIL}", "--agree-tos"]
+    ports:
+      - $CERTBOT_PORT:$CERTBOT_PORT
+
   envoy:
     build:
       context: .
@@ -21,19 +31,9 @@ services:
       - $ENVOY_PORT:$ENVOY_PORT
     volumes:
       - ./envoy.template.yaml:/etc/envoy/envoy.template.yaml
-      - certs:/var/www/certbot/:ro
+      - certs:/var/www/certbot
     depends_on:
       - certbot
-
-  certbot:
-    image: certbot/certbot:latest
-    container_name: certbot
-    volumes:
-      - certs:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-    command: certonly --standalone --agree-tos --non-interactive --email www.www-we2016@mail.ru -d teamspot.online
-    ports:
-      - $CERTBOT_PORT:$CERTBOT_PORT
   web:
     build:
       context: .
