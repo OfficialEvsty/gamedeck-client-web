@@ -9,9 +9,9 @@ static_resources:
     - name: server_cert
       tls_certificate:
         certificate_chain:
-          filename: /etc/certs/live/teamspot.online/fullchain.pem
+          filename: /var/www/certbot/live/teamspot.online/fullchain.pem
         private_key:
-          filename: /etc/certs/live/teamspot.online/privkey.pem
+          filename: /var/www/certbot/live/teamspot.online/privkey.pem
   listeners:
     - name: listener_0
       address:
