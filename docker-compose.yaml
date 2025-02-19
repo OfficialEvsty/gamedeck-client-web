@@ -48,7 +48,7 @@ services:
 
 volumes:
   certs:
-    external: true
+    external: false
 
 networks:
   web-game-deck:
