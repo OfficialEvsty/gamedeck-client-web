@@ -30,7 +30,7 @@ static_resources:
                   name: local_route
                   virtual_hosts:
                     - name: local_service
-                      domains: ["*"]
+                      domains: [${DOMAIN}]
                       cors:
                         allow_origin_string_match:
                           - prefix: "*"
@@ -60,7 +60,7 @@ static_resources:
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
                           if refresh_token then
                             response_handle:logInfo("Refresh token found: " .. refresh_token)
-                            response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; HttpOnly; Path=/; SameSite=Strict; Expires=" .. expires)
+                            response_handle:headers():add("set-cookie", "refreshToken=" .. refresh_token .. "; HttpOnly; Path=/; Secure; SameSite=Strict; Expires=" .. expires)
                           else
                             response_handle:logWarn("No refresh token found in headers")
                           end
@@ -68,7 +68,15 @@ static_resources:
                   - name: envoy.filters.http.router
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
-
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+          common_tls_context:
+            tls_certificates:
+              - certificate_chain:
+                  filename: ${CERTIFICATE_CHAIN_FILENAME_PATH}
+                private_key: ${PRIVATE_KEY_FILENAME_PATH}
   clusters:
     - name: grpc_service
       connect_timeout: 0.25s
@@ -84,3 +92,8 @@ static_resources:
                     socket_address:
                       address: ${GRPC_SERVER_HOST}
                       port_value: ${GRPC_SERVER_PORT}
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+          sni: ${BACKEND_DOMAIN}
