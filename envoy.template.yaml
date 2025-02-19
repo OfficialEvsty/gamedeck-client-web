@@ -20,7 +20,8 @@ static_resources:
                 tls_certificates:
                   - certificate_chain:
                       filename: ${CERTIFICATE_CHAIN_FILENAME_PATH}
-                    private_key: ${PRIVATE_KEY_FILENAME_PATH}
+                    private_key:
+                      filename: ${PRIVATE_KEY_FILENAME_PATH}
         - filters:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
