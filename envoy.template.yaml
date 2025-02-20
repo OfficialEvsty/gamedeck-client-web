@@ -55,10 +55,9 @@ static_resources:
                         max_age: "86400"
                       routes:
                         - match:
-                            prefix: "/api"
+                            prefix: ""
                           route:
                             cluster: grpc_service
-                            prefix_rewrite: ""
                         - match:
                             prefix: "/"
                           route:
@@ -104,6 +103,7 @@ static_resources:
                     socket_address:
                       address: ${GRPC_SERVER_HOST}
                       port_value: ${GRPC_SERVER_PORT}
+
     - name: web_client
       connect_timeout: 0.25s
       type: LOGICAL_DNS
