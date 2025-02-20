@@ -55,8 +55,9 @@ static_resources:
                         max_age: "86400"
                       routes:
                         - match:
-                            prefix: ""
+                            prefix: "/api"
                           route:
+                            prefix_rewrite: "/"
                             cluster: grpc_service
                         - match:
                             prefix: "/"

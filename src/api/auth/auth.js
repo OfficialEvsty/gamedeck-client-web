@@ -2,7 +2,7 @@ const { AuthServiceClient } = require('../../proto/sso_grpc_web_pb.js');
 const { RegisterRequest, LoginRequest,  RefreshTokenRequest, LogoutAllRequest, IsAdminRequest} = require('../../proto/sso_pb.js');
 
 // Auth client to communicate with sso auth service
-export const authClient = new AuthServiceClient('https://teamspot.online', null, { withCredentials: true });
+export const authClient = new AuthServiceClient('https://teamspot.online/api', null, { withCredentials: true });
 
 // Creates a register request
 export const registerRequest = (email, password) => {
