@@ -57,7 +57,9 @@ static_resources:
                         - match:
                             prefix: "/api"
                           route:
-                            prefix_rewrite: "/"
+                            regex_rewrite:
+                              pattern: "^/api/(.*)"
+                              substitution: "\\1"
                             cluster: grpc_service
                         - match:
                             prefix: "/"
