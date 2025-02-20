@@ -51,7 +51,6 @@ services:
       - .env
     ports:
       - "3000:3000"
-      - $CERTBOT_PORT:$CERTBOT_PORT
     networks:
       - web-game-deck
 

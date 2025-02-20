@@ -17,7 +17,7 @@ static_resources:
       address:
         socket_address:
           address: 0.0.0.0
-          port_value: ${CERTBOT_PORT}
+          port_value: ${ENVOY_PORT}
       filter_chains:
         - transport_socket:
             name: envoy.transport_sockets.tls
@@ -26,8 +26,7 @@ static_resources:
               common_tls_context:
                 tls_certificate_sds_secret_configs:
                   - name: server_cert
-
-        - filters:
+          filters:
             - name: envoy.filters.network.http_connection_manager
               typed_config:
                 "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
