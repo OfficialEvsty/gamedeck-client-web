@@ -61,7 +61,7 @@ const LoginForm = () => {
                             pattern: {value: /^\S+@\S+$/i}
                         })}/>
                         <label htmlFor='login' className='placeholder'>Введите email</label>
-                        <button className='btn cncl-icon' onClick={clearLoginInput}>
+                        <button className='btn cncl-icon' onClick={clearLoginInput} type='button'>
                             <img src="/assets/svg/Close.svg" alt="Показать пароль" />
                         </button>
                     </div>
@@ -73,7 +73,7 @@ const LoginForm = () => {
                             minLength: {value: 8}
                         })}/>
                         <label htmlFor='password' className='placeholder'>Введите пароль</label>
-                        <button id="togglePassword" onClick={ togglePasswordVisibility } className='btn reveal-pass'>
+                        <button id="togglePassword" type='button' onClick={ togglePasswordVisibility } className='btn reveal-pass'>
                             <img src="/assets/svg/Hide.svg" alt="Показать пароль" id="eyeIcon" />
                         </button>
                     </div>
@@ -81,8 +81,8 @@ const LoginForm = () => {
             </div>
             <div className='login-buttons'>
                 <button className='form-btn login' onClick={validate} type='submit'>Войти</button>
-                    <button className='form-btn register'>Зарегистрироваться</button>
-                    <button className='form-btn forgot'>Не помню пароль</button>
+                <button className='form-btn register' type='button'>Зарегистрироваться</button>
+                <button className='form-btn forgot' type='button'>Не помню пароль</button>
                 </div>
             </div>
         </form>

@@ -8,8 +8,8 @@ const IDIcon = () => {
                 <p className="icon-text">ID</p>
             </div>
         </div>*/
-        <object className='logo-icon' data="/assets/svg/Logo%20ID.svg" type="image/svg+xml">
-            <img src="../../public/assets/svg/Logo%20ID.svg" alt="" />
+        <object className='logo-icon' data="/assets/svg/Logo_ID.svg" type="image/svg+xml">
+            <img src="../../public/assets/svg/Logo_ID.svg" alt="" />
         </object>
     )
 }
