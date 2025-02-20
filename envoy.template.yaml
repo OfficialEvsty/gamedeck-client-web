@@ -103,11 +103,6 @@ static_resources:
                     socket_address:
                       address: ${GRPC_SERVER_HOST}
                       port_value: ${GRPC_SERVER_PORT}
-      transport_socket:
-        name: envoy.transport_sockets.tls
-        typed_config:
-          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
-          sni: ${BACKEND_DOMAIN}
     - name: web_client
       connect_timeout: 0.25s
       type: LOGICAL_DNS

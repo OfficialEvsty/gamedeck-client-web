@@ -196,6 +196,10 @@ input:not(:placeholder-shown) ~ .btn {
     z-index: 100;
 }
 
+.input-group>input:not(:focus) {
+    cursor: pointer;
+}
+
 label {
     transition: transform 200ms;
     cursor: pointer;
@@ -237,7 +241,8 @@ label {
     font-size: 18px;
     line-height: 24px;
     opacity: 0.5;
-
+    cursor: pointer;
+    user-select: none;
 }
 
 .input-group>input {
