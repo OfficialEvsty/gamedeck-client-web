@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f4ebe1-b8bc-40f6-90a1-49bf4da1b08c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/envoy.template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/envoy.template.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +120,7 @@
       <workItem from="1739790365840" duration="144000" />
       <workItem from="1739863196349" duration="20727000" />
       <workItem from="1739951661902" duration="15497000" />
-      <workItem from="1740029782710" duration="18072000" />
+      <workItem from="1740029782710" duration="18373000" />
     </task>
     <servers />
   </component>
