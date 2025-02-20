@@ -55,9 +55,14 @@ static_resources:
                         max_age: "86400"
                       routes:
                         - match:
-                            prefix: "/"
+                            prefix: "/api"
                           route:
                             cluster: grpc_service
+                        - match:
+                            prefix: "/"
+                          route:
+                            cluster: web_client
+                            timeout: 0s
                 http_filters:
                   - name: envoy.filters.http.grpc_web
                     typed_config:
@@ -103,3 +108,16 @@ static_resources:
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
           sni: ${BACKEND_DOMAIN}
+    - name: web_client
+      connect_timeout: 0.25s
+      type: LOGICAL_DNS
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: web_client
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: web
+                      port_value: ${REACT_PORT}
