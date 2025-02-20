@@ -1,12 +1,12 @@
 version: '3'
 services:
   certbot:
-    image: certbot/dns-cloudflare
+    image: certbot/certbot:latest
     container_name: certbot
     volumes:
       - certs:/etc/letsencrypt:rw
       - certs:/var/lib/letsencrypt:rw
-    entrypoint: ["certbot", "certonly", "--dns-cloudflare", "--dns-cloudflare-credentials", "/cfg/cloudflare.ini", "-d", "${DOMAIN}", "--email", "${EMAIL}", "--agree-tos"]
+    command: certonly --standalone --agree-tos --non-interactive --email www.www-we2016@mail.ru -d teamspot.online
     ports:
       - $CERTBOT_PORT:$CERTBOT_PORT
   renew:
@@ -15,7 +15,6 @@ services:
     volumes:
       - certs:/etc/letsencrypt:rw
       - certs:/var/lib/letsencrypt:rw
-      - ./cfg:/cfg:ro
     entrypoint: "/bin/sh -c 'while :; do certbot renew --dns-cloudflare --dns-cloudflare-credentials /cfg/cloudflare.ini; sleep 12h; done'"
 
   envoy:
@@ -39,7 +38,7 @@ services:
       - $ENVOY_PORT:$ENVOY_PORT
     volumes:
       - ./envoy.template.yaml:/etc/envoy/envoy.template.yaml
-      - certs:/etc/certs:ro
+      - certs:/var/lib/letsencrypt:ro
     depends_on:
       - certbot
   web:
@@ -52,12 +51,13 @@ services:
       - .env
     ports:
       - "3000:3000"
+      - $CERTBOT_PORT:$CERTBOT_PORT
     networks:
       - web-game-deck
 
 volumes:
   certs:
-    external: false
+    external: true
 
 networks:
   web-game-deck:
