@@ -22,16 +22,25 @@ const loginRequest = (email, password, appId) => {
 }
 
 const Login = (email, password, appId) => {
-    const request = loginRequest(email, password, appId);
-    const metadata = { 'Content-Type': 'application/grpc-web'};
-    authClient.login(request, metadata, (err, response) => {
-        if (err) {
-            console.error("Login error: "+ err);
-        }
-        else {
-            console.log(response.toObject());
-        }
-    })
+    return new Promise((resolve, reject) => {
+        const request = loginRequest(email, password, appId);
+        const metadata = { 'Content-Type': 'application/grpc-web'};
+        authClient.login(request, metadata, (err, response) => {
+            if (err) {
+                console.error("Login error: "+ err);
+                reject(err);
+            }
+            else {
+                if (response) {
+                    console.log(response.toObject());
+                    resolve(response);
+                }
+                else {
+                    reject(new Error("No response received"))
+                }
+            }
+        })
+    });
 }
 export default Login;
 

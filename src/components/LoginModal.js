@@ -4,13 +4,15 @@ import { useForm } from 'react-hook-form'
 import React, {useRef, useState} from "react";
 import {useAuth} from "../storage/AuthContext"
 import Login from "../api/auth/auth"
+import { useNavigate } from "react-router-dom"
 
 const LoginForm = () => {
     const { register, handleSubmit, setValue, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [animate, setAnimate] = useState(false);
-    const { accessToken, setAccessToken } = useAuth();
+    const { setAccessToken } = useAuth();
     const containerRefs = useRef([React.createRef(), React.createRef()]);
+    const navigate = useNavigate();
 
     const validate = () => {
         if (errors.email || errors.password) {
@@ -18,10 +20,18 @@ const LoginForm = () => {
             setTimeout(() => setAnimate(false), 1000);
         }
     }
-    const onSubmit = (data) => {
-        console.log("Submitted", data)
-        Login(data.email, data.password, 1);
-        setAccessToken(accessToken)
+    const onSubmit = async (data) => {
+        try {
+            const loginResponse = await Login(data.email, data.password, 1);
+            console.log("Login successful: " + loginResponse);
+            if (loginResponse) {
+                setAccessToken(loginResponse.accessToken);
+                navigate("/", {replace: true})
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     const onInputGroupClick = (index) => {
