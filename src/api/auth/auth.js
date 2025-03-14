@@ -12,6 +12,29 @@ export const registerRequest = (email, password) => {
     return request;
 }
 
+// Register request method for sso api
+export const Register = (email, password, passwordConfirm) => {
+    return new Promise((resolve, reject) => {
+        const request = new registerRequest(email, password);
+        const metadata = { 'Content-Type': 'application/grpc-web'};
+        authClient.register(request, metadata, (err, response) => {
+            if (err) {
+                console.error("Register error: ", err);
+                reject(err);
+            }
+            else {
+                if (response) {
+                    console.log(response.toObject());
+                    resolve(response);
+                }
+                else {
+                    console.log("No response received: ");
+                }
+            }
+        })
+    })
+}
+
 // Creates a login request
 const loginRequest = (email, password, appId) => {
     const request = new LoginRequest();
@@ -21,7 +44,7 @@ const loginRequest = (email, password, appId) => {
     return request;
 }
 
-const Login = (email, password, appId) => {
+export const Login = (email, password, appId) => {
     return new Promise((resolve, reject) => {
         const request = loginRequest(email, password, appId);
         const metadata = { 'Content-Type': 'application/grpc-web'};
@@ -42,7 +65,7 @@ const Login = (email, password, appId) => {
         })
     });
 }
-export default Login;
+
 
 export const logoutRequest = (userId, refresh = null) => {
     const request = new LogoutAllRequest();

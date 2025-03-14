@@ -1,9 +1,10 @@
-import '../styles/loginLayout.css'
+import '../styles/login.css'
+import '../styles/auth.css'
 import IDIcon from "./IdIcon";
 import { useForm } from 'react-hook-form'
 import React, {useRef, useState} from "react";
 import {useAuth} from "../storage/AuthContext"
-import Login from "../api/auth/auth"
+import { Login } from "../api/auth/auth"
 import { useNavigate } from "react-router-dom"
 
 const LoginForm = () => {
@@ -58,15 +59,15 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={ handleSubmit(onSubmit) }>
-            <div className="login-wrapper">
-                <div className='login-header'>
+            <div className='auth-wrapper'>
+                <div className='auth-header'>
                     <IDIcon/>
                     <p className='login-title'>Войдите в систему</p>
                 </div>
-                <div className='login-inputs'>
+                <div className='auth-inputs'>
                     <div className='input-group' onClick={ () => onInputGroupClick (0)} ref={containerRefs.current[0]} key='0'>
                         <div className={`overlay${animate ? ' input-error' : ''}`}/>
-                        <input id='login' type='text' placeholder=' ' className='login-input truncate' {...register('email', {
+                        <input id='login' type='text' placeholder=' ' className='auth-input truncate' {...register('email', {
                             required: true,
                             pattern: {value: /^\S+@\S+$/i}
                         })}/>
@@ -78,7 +79,7 @@ const LoginForm = () => {
 
                     <div className='input-group' onClick={ () => onInputGroupClick(1) } ref={containerRefs.current[1]} key='1'>
                         <div className={`overlay${animate ? ' input-error' : ''}`}/>
-                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className='login-input truncate' {...register('password', {
+                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className='auth-input truncate' {...register('password', {
                             required: true,
                             minLength: {value: 8}
                         })}/>
@@ -89,7 +90,7 @@ const LoginForm = () => {
                     </div>
 
             </div>
-            <div className='login-buttons'>
+            <div className='auth-buttons'>
                 <button className='form-btn login' onClick={validate} type='submit'>Войти</button>
                 <button className='form-btn register' type='button'>Зарегистрироваться</button>
                 <button className='form-btn forgot' type='button'>Не помню пароль</button>
