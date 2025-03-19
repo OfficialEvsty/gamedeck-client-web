@@ -5,21 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f4ebe1-b8bc-40f6-90a1-49bf4da1b08c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/png/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/svg/ArrowBack.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/RegisterModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/auth.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/register.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/mailer/mailer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/auth/AuthModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/encrypter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/proto/contracts/mailer/mailer.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/templates/mails/email_verification_mail.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/ico/logo.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Taskfile.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Taskfile.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/envoy.template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/envoy.template.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/auth/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoginModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RegisterModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/loginLayout.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proto/sso.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/proto/contracts/sso/sso.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proto/sso_grpc_web_pb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proto/sso_pb.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -62,7 +64,7 @@
     "git-widget-placeholder": "master",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/home/officialevsty/LocalRepository/gamedeck-client-web/public/assets/svg",
+    "last_opened_file_path": "/home/officialevsty/LocalRepository/gamedeck-client-web/src/proto",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -79,18 +81,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/proto" />
+      <recent name="$PROJECT_DIR$/src/libs" />
+      <recent name="$PROJECT_DIR$/src/components/auth/models" />
+      <recent name="$PROJECT_DIR$/src/components/auth" />
       <recent name="$PROJECT_DIR$/public/assets/svg" />
-      <recent name="$PROJECT_DIR$/public/assets/png" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/assets/ico" />
-      <recent name="$PROJECT_DIR$/src/images" />
-      <recent name="A:\React Projects\gamedeck-client-web\public\assets\svg" />
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/public/assets/svg/deprecated" />
+      <recent name="$PROJECT_DIR$/src/proto/contracts/sso" />
+      <recent name="$PROJECT_DIR$/src/proto/contracts/mailer" />
+      <recent name="$PROJECT_DIR$/src/components/auth/models" />
+      <recent name="$PROJECT_DIR$/src/components/auth" />
+      <recent name="$PROJECT_DIR$/src/components" />
     </key>
   </component>
   <component name="RunManager">
@@ -140,6 +142,7 @@
       <workItem from="1740029782710" duration="23509000" />
       <workItem from="1740552186319" duration="2878000" />
       <workItem from="1740595715974" duration="928000" />
+      <workItem from="1742373111221" duration="17438000" />
     </task>
     <servers />
   </component>

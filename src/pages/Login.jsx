@@ -1,14 +1,13 @@
 import React from 'react'
-//import LoginForm from '../components/LoginModal'
 import '../styles/login.css'
-import RegisterForm from "../components/RegisterModal";
+import AuthModal from "../components/auth/AuthModal";
 
 
 function Login() {
     return (
         <>
             <div className='login-layout'>
-                <RegisterForm />
+                <AuthModal />
 
             </div>
         </>

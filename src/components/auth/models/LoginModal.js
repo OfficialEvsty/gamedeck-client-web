@@ -1,13 +1,13 @@
-import '../styles/login.css'
-import '../styles/auth.css'
-import IDIcon from "./IdIcon";
+import '../../../styles/login.css'
+import '../../../styles/auth.css'
+import IDIcon from "../../IdIcon";
 import { useForm } from 'react-hook-form'
 import React, {useRef, useState} from "react";
-import {useAuth} from "../storage/AuthContext"
-import { Login } from "../api/auth/auth"
+import {useAuth} from "../../../storage/AuthContext"
+import { Login } from "../../../api/auth/auth"
 import { useNavigate } from "react-router-dom"
 
-const LoginForm = () => {
+const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
     const { register, handleSubmit, setValue, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [animate, setAnimate] = useState(false);
@@ -43,14 +43,14 @@ const LoginForm = () => {
     }
 
     function togglePasswordVisibility() {
-       const passwordInput = document.getElementById('password');
-       const eyeIcon = document.getElementById('eyeIcon');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
         setPasswordVisible(passwordVisible => !passwordVisible);
-       if (passwordInput.type === 'password') {
-           eyeIcon.src = "/assets/svg/Eye.svg";
-       } else {
-           eyeIcon.src = "/assets/svg/Hide.svg";
-       }
+        if (passwordInput.type === 'password') {
+            eyeIcon.src = "/assets/svg/Eye.svg";
+        } else {
+            eyeIcon.src = "/assets/svg/Hide.svg";
+        }
     }
 
     function clearLoginInput() {
@@ -89,11 +89,11 @@ const LoginForm = () => {
                         </button>
                     </div>
 
-            </div>
-            <div className='auth-buttons'>
-                <button className='form-btn login' onClick={validate} type='submit'>Войти</button>
-                <button className='form-btn register' type='button'>Зарегистрироваться</button>
-                <button className='form-btn forgot' type='button'>Не помню пароль</button>
+                </div>
+                <div className='auth-buttons'>
+                    <button className='form-btn login' onClick={validate} type='submit'>Войти</button>
+                    <button className='form-btn register' type='button' onClick={onSwitchToRegister}>Зарегистрироваться</button>
+                    <button className='form-btn forgot' type='button' onClick={onSwitchToForgotPassword}>Не помню пароль</button>
                 </div>
             </div>
         </form>

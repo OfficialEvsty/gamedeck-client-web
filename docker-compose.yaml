@@ -45,6 +45,7 @@ services:
     build:
       context: .
     environment:
+      GMAIL_EXTERNAL_PASSWORD: $GMAIL_EXTERNAL_PASSWORD
       REACT_PORT: $REACT_PORT
       ENVOY_PORT: $ENVOY_PORT
     env_file:

@@ -5,7 +5,13 @@ version: "3"
 tasks:
   generate:
     aliases:
-      - gen
+        - gen
     desc: "Generate code from proto files"
     cmds:
-      - protoc -I=src/proto src/proto/*.proto --js_out=import_style=commonjs,binary:src/proto --grpc-web_out=import_style=commonjs,mode=grpcwebtext:src/proto
+      - protoc -I=src/proto/contracts/sso src/proto/contracts/sso/*.proto --js_out=import_style=commonjs,binary:src/proto/generated/sso --grpc-web_out=import_style=commonjs,mode=grpcwebtext:src/proto/generated/sso
+  generateMail:
+    aliases:
+      - genmail
+    desc: "Generate code from proto files"
+    cmds:
+      - protoc -I=src/proto/contracts/mailer src/proto/contracts/mailer/*.proto --js_out=import_style=commonjs,binary:src/proto/generated/mailer --grpc-web_out=import_style=commonjs,mode=grpcwebtext:src/proto/generated/mailer
