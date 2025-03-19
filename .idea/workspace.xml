@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f4ebe1-b8bc-40f6-90a1-49bf4da1b08c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api/mailer/mailer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth/AuthModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/encrypter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/proto/contracts/mailer/mailer.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/templates/mails/email_verification_mail.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Taskfile.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Taskfile.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/envoy.template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/envoy.template.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/auth/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RegisterModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/sso.proto" beforeDir="false" afterPath="$PROJECT_DIR$/src/proto/contracts/sso/sso.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/sso_grpc_web_pb.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/proto/sso_pb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +126,7 @@
       <workItem from="1740029782710" duration="23509000" />
       <workItem from="1740552186319" duration="2878000" />
       <workItem from="1740595715974" duration="928000" />
-      <workItem from="1742373111221" duration="17438000" />
+      <workItem from="1742373111221" duration="17822000" />
     </task>
     <servers />
   </component>

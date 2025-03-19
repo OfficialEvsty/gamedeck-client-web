@@ -1,19 +1,33 @@
-# Use the latest LTS version of Node.js
-FROM node:23-alpine
+# Этап сборки (builder)
+FROM node:20-alpine AS builder
 
-# Set the working directory inside the container
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Копируем package.json и package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Устанавливаем зависимости
 RUN npm install
 
-# Copy the rest of your application files
+# Копируем исходный код
 COPY . .
 
-EXPOSE 3000:3000
+# Собираем приложение (если требуется)
+RUN npm run build
 
-# Define the command to run your app
+# Этап запуска (production)
+FROM node:20-alpine
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем только необходимые файлы из этапа сборки
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+
+# Открываем порт
+EXPOSE 3000
+
+# Запускаем приложение
 CMD ["npm", "start"]
