@@ -6,6 +6,7 @@ import "../../../styles/auth.css"
 import React, {useRef, useState} from "react";
 import { SendMail } from "../../../api/mailer/mailer";
 import {makeToken} from "../../../libs/encrypter";
+import emailTemplate from "../../../templates/mails/email_verification_mail.json";
 
 const RegisterForm = ({ onSwitchToLogin }) => {
     const { register, handleSubmit, setValue, watch, formState: {errors} } = useForm();
@@ -15,29 +16,22 @@ const RegisterForm = ({ onSwitchToLogin }) => {
     const onSubmit = async (data) => {
         try {
             await Register(data.email, data.password)
-                .then(() => {
-                    const jsonUrl = "../../../templates/mails/email_verification_mail.json";
+                .then(async () => {
                     const token = makeToken();
-                    fetch(jsonUrl)
-                        .then((response) => response.json())
-                        .then(async (data) => {
-                            const { to, subject, text, html} = data;
-                            const protocol = window.location.protocol;
-                            const host = window.location.hostname;
-                            const ref = `${protocol}://${host}/email_verify?token=${token}`
-                            await SendMail("", to, subject, text+ref, html)
-                                .then(() => {
-                                    console.log(`Письмо успешно отправлено на email: ${data.email}`);
-                                })
+                    const { subject, text, html} = emailTemplate;
+                    const protocol = window.location.protocol;
+                    const host = window.location.hostname;
+                    const ref = `${protocol}//${host}/email_verify?token=${token}`
+                    await SendMail("", data.email, subject, text+ref, html)
+                        .then(() => {
+                            console.log(`Письмо успешно отправлено на домен: ${data.email.split("@")[1]}`);
+                        })
 
-                        }).catch(
-                        err => {
-                            console.log(err);
-                        }
-                    )
-            }).catch((err) => {
-                console.error(err);
-            });
+                }).catch(
+                err => {
+                    console.log(err);
+                }
+            )
             /*const registerResponse = await Register(data.email, data.password);
             if (registerResponse) {
                 // todo: return to login modal

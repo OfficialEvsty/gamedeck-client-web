@@ -104,7 +104,7 @@ static_resources:
 
   clusters:
     - name: grpc_service
-      connect_timeout: 0.25s
+      connect_timeout: 1s
       type: LOGICAL_DNS
       lb_policy: ROUND_ROBIN
       http2_protocol_options: {}
@@ -118,7 +118,7 @@ static_resources:
                       address: ${GRPC_SERVER_HOST}
                       port_value: ${GRPC_SERVER_PORT}
     - name: mail_service
-      connect_timeout: 0.25s
+      connect_timeout: 1s
       type: LOGICAL_DNS
       lb_policy: ROUND_ROBIN
       http2_protocol_options: {}

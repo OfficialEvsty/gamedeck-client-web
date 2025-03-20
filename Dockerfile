@@ -25,6 +25,8 @@ WORKDIR /app
 # Копируем только необходимые файлы из этапа сборки
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/src ./src
 
 # Открываем порт
 EXPOSE 3000
