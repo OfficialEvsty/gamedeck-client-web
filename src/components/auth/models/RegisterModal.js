@@ -3,12 +3,15 @@ import {useForm} from "react-hook-form";
 import { Register } from "../../../api/auth/auth"
 import "../../../styles/register.css";
 import "../../../styles/auth.css"
+import "../../../styles/errors.css"
 import React, {useRef, useState} from "react";
 import { SendMail } from "../../../api/mailer/mailer";
 import {makeToken} from "../../../libs/encrypter";
 import emailTemplate from "../../../templates/mails/email_verification_mail.json";
+import {SaveEmailToken} from "../../../api/verification/verification";
 
 const RegisterForm = ({ onSwitchToLogin }) => {
+    const minPasswordLength = 8;
     const { register, handleSubmit, setValue, watch, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const containerRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
@@ -16,26 +19,15 @@ const RegisterForm = ({ onSwitchToLogin }) => {
     const onSubmit = async (data) => {
         try {
             await Register(data.email, data.password)
-                .then(async () => {
-                    const token = makeToken();
-                    const { subject, text, html} = emailTemplate;
-                    const protocol = window.location.protocol;
-                    const host = window.location.hostname;
-                    const ref = `${protocol}//${host}/email_verify?token=${token}`
-                    await SendMail("", data.email, subject, text+ref, html)
-                        .then(() => {
-                            console.log(`Письмо успешно отправлено на домен: ${data.email.split("@")[1]}`);
-                        })
-
-                }).catch(
-                err => {
-                    console.log(err);
-                }
-            )
-            /*const registerResponse = await Register(data.email, data.password);
-            if (registerResponse) {
-                // todo: return to login modal
-            }*/
+            const token = makeToken();
+            await SaveEmailToken(data.email, token)
+            console.log("Токен сохранен")
+            const { subject, text, html} = emailTemplate;
+            const protocol = window.location.protocol;
+            const host = window.location.hostname;
+            const ref = `${protocol}//${host}/email_verify?token=${token}`;
+            await SendMail("", data.email, subject, text+ref, html);
+            console.log(`Письмо успешно отправлено на домен: ${data.email.split("@")[1]}`);
         }
         catch (e) {
             console.error(e);
@@ -49,21 +41,16 @@ const RegisterForm = ({ onSwitchToLogin }) => {
         }
     }
 
+    const eyeIcons = document.getElementsByClassName('reveal-pass');
+
     function togglePasswordVisibility() {
-        const passwordInput = document.getElementById('password');
-        const eyeIcons = document.getElementsByClassName('reveal-pass');
         setPasswordVisible(passwordVisible => !passwordVisible);
-        if (passwordInput.type === 'password') {
-            Array.from(eyeIcons).forEach((icon) => {
-                icon.src = "/assets/svg/Eye.svg";
-            })
-
-        } else {
-            Array.from(eyeIcons).forEach((icon) => {
-                icon.src = "/assets/svg/Hide.svg";
-            })
-
-        }
+        Array.from(eyeIcons).forEach((icon) => {
+            const closedIcon = icon.querySelector('img[data-icon="closed"]');
+            const openIcon = icon.querySelector('img[data-icon="open"]');
+            closedIcon.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+        });
     }
 
     const validate = () => {
@@ -86,10 +73,10 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                     <span>Регистрация</span>
                 </div>
                 <div className='auth-inputs'>
-                    <div className='input-group' onClick={ () => onInputGroupClick (0)} ref={containerRefs.current[0]} key='0'>
+                    <div className={"input-group " + (errors.email ? 'err' : '')} onClick={ () => onInputGroupClick (0)} ref={containerRefs.current[0]} key='0'>
                         <input id='email' type='text' name='email' placeholder=' ' className='auth-input' {...register('email', {
-                            required: true,
-                            pattern: {value: /^\S+@\S+$/i}
+                            required: "Email обязателен",
+                            pattern: {value: /^\S+@\S+$/i, message: "Введите корректный Email"},
                         })}></input>
                         <label htmlFor='login' className='placeholder'>Введите email</label>
                         <button className='btn cncl-icon' onClick={clearLoginInput} type='button'>
@@ -97,21 +84,24 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                         </button>
                     </div>
 
-                    <div className='input-group' onClick={ () => onInputGroupClick(1) } ref={containerRefs.current[1]} key='1'>
-                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className='auth-input truncate' {...register('password', {
+                    <div className={"input-group " + (errors.password ? 'err' : '')} onClick={ () => onInputGroupClick(1) } ref={containerRefs.current[1]} key='1'>
+                        <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className='auth-input truncate ' {...register('password', {
                             required: true,
-                            minLength: {value: 8}
+                            minLength: {value: minPasswordLength},
                         })}/>
                         <label htmlFor='password' className='placeholder'>Введите пароль</label>
-                        <button type='button' onClick={ togglePasswordVisibility } className='btn reveal-pass'>
-                            <img src="/assets/svg/Hide.svg" alt="Показать пароль" id="eyeIcon" />
+                        <button type='button' onClick={togglePasswordVisibility} className='btn reveal-pass'>
+                            <img src="/assets/svg/Hide.svg" data-icon="closed" alt="Toggle password visibility"/>
+                            <img src="/assets/svg/Eye.svg" data-icon="open" alt="Toggle password visibility"
+                                 className="hidden"/>
                         </button>
                     </div>
 
-                    <div className='input-group' onClick={ () => onInputGroupClick(2) } ref={containerRefs.current[2]} key='2'>
+                    <div className={"input-group " + (errors.passwordConfirm ? 'err' : '')}
+                         onClick={() => onInputGroupClick(2)} ref={containerRefs.current[2]} key='2'>
                         <input id='passwordConfirm' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className='auth-input truncate' {...register('passwordConfirm', {
                             required: true,
-                            minLength: {value: 8},
+                            minLength: {value: minPasswordLength},
                             validate: (val) => {
                                 if (watch('password') !== val) {
                                     return "Пароли не совпадают";
@@ -120,9 +110,14 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                         })}/>
                         <label htmlFor='passwordConfirm' className='placeholder'>Повторите пароль</label>
                         <button type='button' onClick={ togglePasswordVisibility } className='btn reveal-pass'>
-                            <img src="/assets/svg/Hide.svg" alt="Показать пароль" id="eyeIcon" />
+                            <img src="/assets/svg/Hide.svg" data-icon="closed" alt="Toggle password visibility"/>
+                            <img src="/assets/svg/Eye.svg" data-icon="open" alt="Toggle password visibility"
+                                 className="hidden"/>
                         </button>
                     </div>
+                    {errors.email && <span className="err-msg">{errors.email.message}</span>}
+                    {errors.passwordConfirm && <span className="err-msg">{errors.passwordConfirm.message}</span>}
+                    {errors.password && <span className="err-msg">{errors.password.message}</span>}
 
                 </div>
                 <div className='auth-buttons'>

@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f4ebe1-b8bc-40f6-90a1-49bf4da1b08c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/api/verification/verification.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/auth/models/EmailVerficationModal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/errors.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/envoy.template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/envoy.template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/mailer/mailer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/mailer/mailer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/auth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/login.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,6 +138,7 @@
       <workItem from="1742373111221" duration="18358000" />
       <workItem from="1742449999550" duration="13703000" />
       <workItem from="1742467438338" duration="6931000" />
+      <workItem from="1742478351647" duration="15641000" />
     </task>
     <servers />
   </component>

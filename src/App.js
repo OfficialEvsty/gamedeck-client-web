@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 // Importing pages
 import Home from './pages/Home';
 import Login from './pages/Login';
+import RegisterForm from "./components/auth/models/RegisterModal";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
                   element={<Home />}
               ></Route>
               <Route path="*" element={ <PageNotFound/> } />
-              <Route path="/login" element={ <Login/> } />
+              <Route path="/auth" element={ <Login/> } />
+              <Route path="/register" element={ <RegisterForm /> } />
             </Routes>
           </header>
           {/*<button onClick={RegisterOnClick}>Отправить запрос</button>*/}

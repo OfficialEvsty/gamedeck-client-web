@@ -1,0 +1,13 @@
+
+.err-msg {
+    font-weight: 450;
+    font-size: 16px;
+    line-height: 24px;
+    horiz-align: center;
+    color: #FF5656;
+}
+
+.err {
+    border: 2px solid #FF5656;
+}
+

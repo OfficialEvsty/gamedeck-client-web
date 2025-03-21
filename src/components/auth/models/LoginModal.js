@@ -42,16 +42,18 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
         }
     }
 
+    const eyeIcons = document.getElementsByClassName('reveal-pass');
+
     function togglePasswordVisibility() {
-        const passwordInput = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
         setPasswordVisible(passwordVisible => !passwordVisible);
-        if (passwordInput.type === 'password') {
-            eyeIcon.src = "/assets/svg/Eye.svg";
-        } else {
-            eyeIcon.src = "/assets/svg/Hide.svg";
-        }
+        Array.from(eyeIcons).forEach((icon) => {
+            const closedIcon = icon.querySelector('img[data-icon="closed"]');
+            const openIcon = icon.querySelector('img[data-icon="open"]');
+            closedIcon.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+        });
     }
+
 
     function clearLoginInput() {
         setValue("email", "");
@@ -85,7 +87,9 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
                         })}/>
                         <label htmlFor='password' className='placeholder'>Введите пароль</label>
                         <button id="togglePassword" type='button' onClick={ togglePasswordVisibility } className='btn reveal-pass'>
-                            <img src="/assets/svg/Hide.svg" alt="Показать пароль" id="eyeIcon" />
+                            <img src="/assets/svg/Hide.svg" data-icon="closed" alt="Toggle password visibility"/>
+                            <img src="/assets/svg/Eye.svg" data-icon="open" alt="Toggle password visibility"
+                                 className="hidden"/>
                         </button>
                     </div>
 

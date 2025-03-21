@@ -50,3 +50,7 @@ div>.close-button {
 .inline {
     display: inline;
 }
+
+.hidden {
+    display: none;
+}

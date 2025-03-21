@@ -121,7 +121,7 @@ input::placeholder {
 
 
 .input-group:hover,
-.input-group:hover .login-input,
+.input-group:hover .auth-input,
 .input-group:hover input:-webkit-autofill{
     background: #262626;
     box-shadow: 0 0 0 30px #262626 inset !important;
