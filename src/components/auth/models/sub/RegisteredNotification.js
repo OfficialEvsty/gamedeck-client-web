@@ -29,13 +29,14 @@ const RegisteredNotification = () => {
 
 
     return (
-        <div className='auth-wrapper'>
-            <div className='auth-header secondary itms-centered'>
-                <img src={"/assets/svg/" + (isRegistrationError ? "Error.svg" : "Check.svg")} alt='Результат'/>
-                <span>{isRegistrationError ? "Ошибка" : "Аккаунт создан"}</span>
+        <div className='auth-wrapper no-gap'>
+            <div className='info-block-frame itms-centered'>
+                <div className='info-block-body'>
+                    <img src={"/assets/svg/" + (isRegistrationError ? "Error.svg" : "Check.svg")} alt='Результат'/>
+                    <span className='login-title'>{isRegistrationError ? "Ошибка" : "Аккаунт создан"}</span>
+                </div>
             </div>
             <div className='auth-buttons'>
-
                 <button className="form-btn" >
                     <Link className="" to="/oauth">
                         {isRegistrationError ? "Повторить" : "Войти"}

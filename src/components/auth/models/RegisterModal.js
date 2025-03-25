@@ -29,7 +29,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             const protocol = window.location.protocol;
             const host = window.location.hostname;
             const ref = `${protocol}//${host}/email_verify?token=${token}`;
-            await SendMail("", data.email, subject, text+ref, html);
+            await SendMail("", data.email, subject, text+"\n"+ref, html);
             console.log(`Письмо успешно отправлено на домен: ${data.email.split("@")[1]}`);
             setRegisteredEmail(data.email)
             setRegisterSucceeded(true);

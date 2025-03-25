@@ -10,6 +10,10 @@
     background-color: #0D0D0D; /* Добавьте цвет фона, если нужно */
 }
 
+.gap32 {
+    gap: 32px;
+}
+
 .auth-header {
     display: grid;
     top: 0;
@@ -32,6 +36,7 @@
     text-align: center;
     font-size: 18px;
     line-height: 24px;
+    font-weight: 450;
     background: none;
     border: none;
     color: #fff;
@@ -86,4 +91,8 @@ div>.close-button {
 
 .itms-centered {
     justify-items: center;
+}
+
+.no-gap {
+    gap: 0;
 }

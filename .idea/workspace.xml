@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b4f4ebe1-b8bc-40f6-90a1-49bf4da1b08c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/verification/verification.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/verification/verification.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/models/sub/EmailVerficationModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/sub/EmailVerficationModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/models/sub/RegisteredNotification.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/sub/RegisteredNotification.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/auth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/errors.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/errors.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/login.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +140,7 @@
       <workItem from="1742467438338" duration="6931000" />
       <workItem from="1742478351647" duration="35183000" />
       <workItem from="1742884749917" duration="16491000" />
-      <workItem from="1742906036164" duration="1737000" />
+      <workItem from="1742906036164" duration="3802000" />
     </task>
     <servers />
   </component>

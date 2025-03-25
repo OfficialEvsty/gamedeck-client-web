@@ -11,3 +11,12 @@
     border: 2px solid #FF5656;
 }
 
+.info-block-frame{
+    border-radius: 48px;
+    padding: 40px;
+}
+
+.info-block-body{
+    display: grid;
+    gap: 16px;
+}

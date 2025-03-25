@@ -66,7 +66,7 @@ const   EmailVerificationForm = ({ registeredEmail, onSwitchToLogin }) => {
 
     return (
         <form onSubmit={onSubmit}>
-            <div className='auth-wrapper'>
+            <div className='auth-wrapper gap32'>
                 <div className='auth-header secondary'>
                     <button className='close-button inline' onClick={onSwitchToLogin}>
                         <img src='/assets/svg/ArrowBack.svg' alt='Назад'/>
@@ -80,13 +80,13 @@ const   EmailVerificationForm = ({ registeredEmail, onSwitchToLogin }) => {
                         </span>
                         <span className='info-msg'>На почту {registeredEmail} было отправлено письмо со ссылкой для подтвеждения аккаунта</span>
                     </span>
-                    <div className='auth-buttons'>
-                        <button className={"form-btn "+(isRunning ? "blocked" : "")} onClick={onSubmit}>
-                            <div>
-                                Отправить повторно{isRunning && `: ${formatTime(timeLeft)}`}
-                            </div>
-                        </button>
-                    </div>
+                </div>
+                <div className='auth-buttons'>
+                    <button className={"form-btn "+(isRunning ? "blocked" : "")} onClick={onSubmit}>
+                        <div>
+                            Отправить повторно{isRunning && `: ${formatTime(timeLeft)}`}
+                        </div>
+                    </button>
                 </div>
             </div>
         </form>
