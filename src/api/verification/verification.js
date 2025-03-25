@@ -1,5 +1,5 @@
 const { VerificationServiceClient } = require('../../proto/generated/sso/sso_grpc_web_pb.js');
-const { SaveEmailTokenRequest } = require('../../proto/generated/sso/sso_pb.js');
+const { SaveEmailTokenRequest, VerifyEmailRequest } = require('../../proto/generated/sso/sso_pb.js');
 
 // const protocol = window.location.protocol;
 // const host = window.location.hostname;
@@ -25,15 +25,37 @@ export const SaveEmailToken = (email, token) => {
                 console.error("save email token error: ", err);
                 reject(err);
             }
-            else {
-                if (response) {
-                    console.log(response.toObject());
-                    resolve(response);
-                }
-                else {
-                    console.log("No response received: ");
-                }
+            if (response) {
+                console.log(response.toObject());
+                resolve(response);
             }
+            console.log("No response received: ");
         })
     })
+}
+
+export const verifyEmailRequest = (token) => {
+    const request = new VerifyEmailRequest(token);
+    request.setToken(token);
+    return request;
+}
+
+// verifies toke on server and valid or invalid it
+export const VerifyEmail = (token) => {
+    return new Promise((resolve, reject) => {
+        const request = verifyEmailRequest(token);
+        const metadata = { 'Content-Type': 'application/grpc-web'};
+        verificationClient.verifyEmail(request, metadata, (err, response) => {
+            if (err) {
+                console.error("verification failed: ", err);
+                reject(err);
+            }
+            if (response) {
+                console.log(response.toObject());
+                resolve(response);
+            }
+            console.log("no response received: ");
+        })
+    })
+
 }

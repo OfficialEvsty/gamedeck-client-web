@@ -67,10 +67,10 @@ div>.close-button {
 
 .info-msg {
     text-align: left;
-    font-weight: 500 ;
     font-size: 16px;
     line-height: 24px;
     color: #9B9B9B;
+    font-weight: 450;
 }
 
 .info-body {
@@ -82,4 +82,8 @@ div>.close-button {
     background-color: #1C1C1C;
     color: #9B9B9B;
     cursor: not-allowed;
+}
+
+.itms-centered {
+    justify-items: center;
 }

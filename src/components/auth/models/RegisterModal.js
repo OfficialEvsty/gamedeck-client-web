@@ -9,11 +9,14 @@ import { SendMail } from "../../../api/mailer/mailer";
 import {makeToken} from "../../../libs/encrypter";
 import emailTemplate from "../../../templates/mails/email_verification_mail.json";
 import {SaveEmailToken} from "../../../api/verification/verification";
+import EmailVerificationModal from "./sub/EmailVerficationModal";
 
 const RegisterForm = ({ onSwitchToLogin }) => {
     const minPasswordLength = 8;
     const { register, handleSubmit, setValue, watch, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [registerSucceeded, setRegisterSucceeded] = useState(false);
+    const [registeredEmail, setRegisteredEmail] = useState("");
     const containerRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
 
     const onSubmit = async (data) => {
@@ -28,6 +31,8 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             const ref = `${protocol}//${host}/email_verify?token=${token}`;
             await SendMail("", data.email, subject, text+ref, html);
             console.log(`Письмо успешно отправлено на домен: ${data.email.split("@")[1]}`);
+            setRegisteredEmail(data.email)
+            setRegisterSucceeded(true);
         }
         catch (e) {
             console.error(e);
@@ -63,7 +68,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
         setValue('email', '');
     }
 
-    return (
+    return (registerSucceeded ? <EmailVerificationModal onSwitchToLogin={onSwitchToLogin} registeredEmail={registeredEmail}/> :
         <form onSubmit={ handleSubmit(onSubmit) }>
             <div className='auth-wrapper'>
                 <div className='auth-header secondary'>

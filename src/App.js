@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import RegisterForm from "./components/auth/models/RegisterModal";
+import RegisteredNotification from "./components/auth/models/sub/RegisteredNotification";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="*" element={ <PageNotFound/> } />
               <Route path="/oauth" element={ <Login/> } />
               <Route path="/register" element={ <RegisterForm /> } />
+              <Route path="/email_verify" element={ <RegisteredNotification/> }/>
             </Routes>
           </header>
           {/*<button onClick={RegisterOnClick}>Отправить запрос</button>*/}

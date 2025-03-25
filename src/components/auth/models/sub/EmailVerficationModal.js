@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {makeToken} from "../../../libs/encrypter";
-import emailTemplate from "../../../templates/mails/email_verification_mail.json";
-import {SendMail} from "../../../api/mailer/mailer";
-import {SaveEmailToken} from "../../../api/verification/verification";
+import {makeToken} from "../../../../libs/encrypter";
+import emailTemplate from "../../../../templates/mails/email_verification_mail.json";
+import {SendMail} from "../../../../api/mailer/mailer";
+import {SaveEmailToken} from "../../../../api/verification/verification";
 
-const EmailVerificationForm = ({ registeredEmail, onSwitchToLogin }) => {
+const   EmailVerificationForm = ({ registeredEmail, onSwitchToLogin }) => {
     const timeBeforeRepeat = 60;
     const [timeLeft, setTimeLeft] = useState(timeBeforeRepeat); // Таймер на 60 секунд
     const [isRunning, setIsRunning] = useState(true); // Состояние таймера (запущен/остановлен)
