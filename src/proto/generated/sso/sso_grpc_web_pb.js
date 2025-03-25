@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * @fileoverview gRPC-Web generated client stub for auth
  * @enhanceable
@@ -12,7 +11,7 @@
 // source: sso.proto
 
 
-/* eslint-disable */
+
 // @ts-nocheck
 
 

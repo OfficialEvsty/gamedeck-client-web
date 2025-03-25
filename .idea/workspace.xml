@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b4f4ebe1-b8bc-40f6-90a1-49bf4da1b08c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/api/verification/verification.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth/models/EmailVerficationModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles/errors.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/mailer/mailer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/mailer/mailer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/RegisterModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/login.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +29,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/.cache/JetBrains/WebStorm2024.3/javascript/typings/react-dom/19.0.4/node_modules/@types/react/ts5.0/v18/index.d.ts" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -57,7 +51,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/officialevsty/LocalRepository/gamedeck-client-web/src/proto&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/officialevsty/LocalRepository/gamedeck-client-web/public/assets/svg&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -67,18 +61,18 @@
     &quot;npm.build.executor&quot;: &quot;Run&quot;,
     &quot;npm.run.executor&quot;: &quot;Run&quot;,
     &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/home/officialevsty/Downloads/WebStorm-2024.3.2.1/WebStorm-243.23654.157/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/assets/svg" />
       <recent name="$PROJECT_DIR$/src/proto" />
       <recent name="$PROJECT_DIR$/src/libs" />
       <recent name="$PROJECT_DIR$/src/components/auth/models" />
       <recent name="$PROJECT_DIR$/src/components/auth" />
-      <recent name="$PROJECT_DIR$/public/assets/svg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/proto/contracts/sso" />
@@ -138,7 +132,8 @@
       <workItem from="1742373111221" duration="18358000" />
       <workItem from="1742449999550" duration="13703000" />
       <workItem from="1742467438338" duration="6931000" />
-      <workItem from="1742478351647" duration="15641000" />
+      <workItem from="1742478351647" duration="35183000" />
+      <workItem from="1742884749917" duration="357000" />
     </task>
     <servers />
   </component>
@@ -147,5 +142,26 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/api/verification/verification.js</url>
+          <line>22</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/api/verification/verification.js</url>
+          <line>23</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/api/verification/verification.js</url>
+          <line>21</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

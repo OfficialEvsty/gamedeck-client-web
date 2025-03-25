@@ -45,6 +45,7 @@ div>.close-button {
 .close-button {
     background: none;
     border: none;
+    cursor: pointer;
 }
 
 .inline {
@@ -53,4 +54,32 @@ div>.close-button {
 
 .hidden {
     display: none;
+}
+
+.info-block {
+    text-align: justify;
+    display: flex;
+    background-color: #1C1C1C;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 24px;
+}
+
+.info-msg {
+    text-align: left;
+    font-weight: 500 ;
+    font-size: 16px;
+    line-height: 24px;
+    color: #9B9B9B;
+}
+
+.info-body {
+    display: grid;
+    gap: 24px;
+}
+
+.blocked {
+    background-color: #1C1C1C;
+    color: #9B9B9B;
+    cursor: not-allowed;
 }

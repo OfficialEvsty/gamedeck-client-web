@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Register} from "../../../api/auth/auth";
 import {makeToken} from "../../../libs/encrypter";
 import emailTemplate from "../../../templates/mails/email_verification_mail.json";
 import {SendMail} from "../../../api/mailer/mailer";
+import {SaveEmailToken} from "../../../api/verification/verification";
 
-const EmailVerificationForm = ({ onSwitchToLogin }) => {
+const EmailVerificationForm = ({ registeredEmail, onSwitchToLogin }) => {
     const timeBeforeRepeat = 60;
     const [timeLeft, setTimeLeft] = useState(timeBeforeRepeat); // Таймер на 60 секунд
-    const [isRunning, setIsRunning] = useState(false); // Состояние таймера (запущен/остановлен)
+    const [isRunning, setIsRunning] = useState(true); // Состояние таймера (запущен/остановлен)
 
     const startTimer = () => {
         setIsRunning(true);
@@ -30,31 +30,37 @@ const EmailVerificationForm = ({ onSwitchToLogin }) => {
         }
     }, [isRunning, timeLeft]);
 
-    const onSubmit = async (data) => {
-        try {
-            await Register(data.email, data.password)
-                .then(async () => {
-                    const token = makeToken();
-                    const {subject, text, html} = emailTemplate;
-                    const protocol = window.location.protocol;
-                    const host = window.location.hostname;
-                    const ref = `${protocol}//${host}/email_verify?token=${token}`
-                    await SendMail("", data.email, subject, text + ref, html)
-                        .then(() => {
-                            console.log(`Письмо успешно отправлено на домен: ${data.email.split("@")[1]}`);
-                        })
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
+    };
 
-                }).catch(
-                    err => {
-                        console.log(err);
-                    }
-                )
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (isRunning && timeLeft > 0) {
+                return
+            }
+            startTimer()
+            const token = makeToken();
+            await SaveEmailToken(registeredEmail, token)
+            console.log("Токен сохранен")
+            const {subject, text, html} = emailTemplate;
+            const protocol = window.location.protocol;
+            const host = window.location.hostname;
+            const ref = `${protocol}//${host}/email_verify?token=${token}`
+            await SendMail("", registeredEmail, subject, text + ref, html)
+                .then(() => {
+                    console.log(`Письмо успешно отправлено на домен: ${registeredEmail.split("@")[1]}`);
+                })
             /*const registerResponse = await Register(data.email, data.password);
             if (registerResponse) {
                 // todo: return to login modal
             }*/
         } catch (e) {
             console.error(e);
+            resetTimer()
         }
     }
 
@@ -67,8 +73,20 @@ const EmailVerificationForm = ({ onSwitchToLogin }) => {
                     </button>
                     <span>Проверьте почту</span>
                 </div>
-                <div className='auth-buttons'>
-                    <button className='form-btn' type='submit' onClick={validate}>Отправить код</button>
+                <div className='info-body'>
+                    <span className='info-block'>
+                        <span>
+                            <img src='/assets/svg/info-icon.svg' alt='Информация'></img>
+                        </span>
+                        <span className='info-msg'>На почту {registeredEmail} было отправлено письмо со ссылкой для подтвеждения аккаунта</span>
+                    </span>
+                    <div className='auth-buttons'>
+                        <button className={"form-btn "+(isRunning ? "blocked" : "")} onClick={onSubmit}>
+                            <div>
+                                Отправить повторно{isRunning && `: ${formatTime(timeLeft)}`}
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

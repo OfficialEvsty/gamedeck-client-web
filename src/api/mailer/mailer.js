@@ -1,13 +1,13 @@
 const { MailServiceClient } = require('../../proto/generated/mailer/mailer_grpc_web_pb.js');
 const { SendMailRequest } = require('../../proto/generated/mailer/mailer_pb');
 
-const protocol = window.location.protocol;
-const host = window.location.hostname;
-const ref = `${protocol}//${host}`;
+//const protocol = window.location.protocol;
+//const host = window.location.hostname;
+//const ref = `${protocol}//${host}`;
 
 
 // mailer client to communicate with mailer api service
-export const mailerClient = new MailServiceClient(ref+"/mailer", null, null);
+export const mailerClient = new MailServiceClient('https://teamspot.online/mailer', null, null);
 
 // Creates a sendmail request
 export const sendMailRequest = (email, password, to, subject, text, html) => {

@@ -1,8 +1,8 @@
-@import url('./styles/fonts.css');
+@import url('fonts/stylesheet.css');
 body {
   margin: 0;
-  font-family: 'PPNeueMontreal-Variable Regular',
-    sans-serif;
+  font-family: 'PPNeueMontreal-Variable Regular', sans-serif;
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

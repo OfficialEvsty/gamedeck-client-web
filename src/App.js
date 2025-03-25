@@ -1,4 +1,5 @@
 import './App.css';
+import '../src/fonts/stylesheet.css'
 import PageNotFound from './pages/PageNotFound';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 /*import RegisterOnClick from "./api/client";*/
@@ -19,7 +20,7 @@ function App() {
                   element={<Home />}
               ></Route>
               <Route path="*" element={ <PageNotFound/> } />
-              <Route path="/auth" element={ <Login/> } />
+              <Route path="/oauth" element={ <Login/> } />
               <Route path="/register" element={ <RegisterForm /> } />
             </Routes>
           </header>

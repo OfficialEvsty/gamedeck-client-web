@@ -1,12 +1,12 @@
 const { VerificationServiceClient } = require('../../proto/generated/sso/sso_grpc_web_pb.js');
-const { SaveEmailTokenRequest, VerifyEmailRequest } = require('../../proto/generated/sso/sso_pb.js');
+const { SaveEmailTokenRequest } = require('../../proto/generated/sso/sso_pb.js');
 
-const protocol = window.location.protocol;
-const host = window.location.hostname;
-const ref = `${protocol}//${host}`;
+// const protocol = window.location.protocol;
+// const host = window.location.hostname;
+// const ref = `${protocol}//${host}`;
 
 // Auth client to communicate with sso auth service
-export const verificationClient = new VerificationServiceClient(ref+"/sso", null, null)
+export const verificationClient = new VerificationServiceClient('https://teamspot.online/sso', null, null)
 // Creates a register request
 export const saveEmailTokenRequest = (email, token) => {
     const request = new SaveEmailTokenRequest(email, token);
