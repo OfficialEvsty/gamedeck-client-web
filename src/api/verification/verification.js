@@ -9,7 +9,7 @@ const { SaveEmailTokenRequest, VerifyEmailRequest } = require('../../proto/gener
 export const verificationClient = new VerificationServiceClient('https://teamspot.online/sso', null, null)
 // Creates a register request
 export const saveEmailTokenRequest = (email, token) => {
-    const request = new SaveEmailTokenRequest(email, token);
+    const request = new SaveEmailTokenRequest();
     request.setEmail(email);
     request.setToken(token);
     return request;
@@ -24,10 +24,12 @@ export const SaveEmailToken = (email, token) => {
             if (err) {
                 console.error("save email token error: ", err);
                 reject(err);
+                return;
             }
             if (response) {
                 console.log(response.toObject());
                 resolve(response);
+                return;
             }
             console.log("No response received: ");
         })
@@ -49,10 +51,12 @@ export const VerifyEmail = (token) => {
             if (err) {
                 console.error("verification failed: ", err);
                 reject(err);
+                return;
             }
             if (response) {
                 console.log(response.toObject());
                 resolve(response);
+                return;
             }
             console.log("no response received: ");
         })
