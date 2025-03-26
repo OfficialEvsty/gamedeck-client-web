@@ -37,7 +37,7 @@ export const SaveEmailToken = (email, token) => {
 }
 
 export const verifyEmailRequest = (token) => {
-    const request = new VerifyEmailRequest(token);
+    const request = new VerifyEmailRequest();
     request.setToken(token);
     return request;
 }

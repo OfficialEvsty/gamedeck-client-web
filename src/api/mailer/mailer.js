@@ -23,7 +23,7 @@ export const sendMailRequest = (email, password, to, subject, text, html) => {
 
 // Register request method for sso api
 export const SendMail = (email, to, subject, text, html) => {
-    const password = process.env.GMAIL_EXTERNAL_PASSWORD; //пароль на стороне бэкэнда
+    const password = process.env.GMAIL_EXTERNAL_PASSWORD; //пароль на стороне бэкэнда(не работает на вебе)
     return new Promise((resolve, reject) => {
         const request = sendMailRequest(email, password, to, subject, text, html);
         const metadata = { 'Content-Type': 'application/grpc-web'};

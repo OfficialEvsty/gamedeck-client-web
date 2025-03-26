@@ -9,17 +9,18 @@ const { RegisterRequest, LoginRequest,  RefreshTokenRequest, LogoutAllRequest, I
 export const authClient = new AuthServiceClient('https://teamspot.online/sso', null, null);
 
 // Creates a register request
-export const registerRequest = (email, password) => {
+export const registerRequest = (email, password, callbackUrl) => {
     const request = new RegisterRequest();
     request.setEmail(email);
     request.setPassword(password);
+    request.setCallbackurl(callbackUrl)
     return request;
 }
 
 // Register request method for sso api
-export const Register = (email, password) => {
+export const Register = (email, password, callbackUrl) => {
     return new Promise((resolve, reject) => {
-        const request = registerRequest(email, password);
+        const request = registerRequest(email, password, callbackUrl);
         const metadata = { 'Content-Type': 'application/grpc-web'};
         authClient.register(request, metadata, (err, response) => {
             if (err) {

@@ -18,7 +18,8 @@ const RegisteredNotification = () => {
                     setRegistrationError(true);
                     console.log("registration error: " + response.status);
                 }
-            } catch {
+            } catch (err){
+                console.log(err);
                 setRegistrationError(true);
             } finally {
                 //setLoading(false);

@@ -11,7 +11,7 @@
 // source: sso.proto
 
 
-
+/* eslint-disable */
 // @ts-nocheck
 
 

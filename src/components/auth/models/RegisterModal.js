@@ -1,15 +1,11 @@
 import {useForm} from "react-hook-form";
-//import {useState} from "react";
 import { Register } from "../../../api/auth/auth"
 import "../../../styles/register.css";
 import "../../../styles/auth.css"
 import "../../../styles/errors.css"
 import React, {useRef, useState} from "react";
-import { SendMail } from "../../../api/mailer/mailer";
-import {makeToken} from "../../../libs/encrypter";
-import emailTemplate from "../../../templates/mails/email_verification_mail.json";
-import {SaveEmailToken} from "../../../api/verification/verification";
 import EmailVerificationModal from "./sub/EmailVerficationModal";
+import {DotLottieReact} from "@lottiefiles/dotlottie-react";
 
 const RegisterForm = ({ onSwitchToLogin }) => {
     const minPasswordLength = 8;
@@ -18,24 +14,22 @@ const RegisterForm = ({ onSwitchToLogin }) => {
     const [registerSucceeded, setRegisterSucceeded] = useState(false);
     const [registeredEmail, setRegisteredEmail] = useState("");
     const containerRefs = useRef([React.createRef(), React.createRef(), React.createRef()]);
-
+    const [loading, setLoading] = useState(false);
+    // submit data from register form
     const onSubmit = async (data) => {
         try {
-            await Register(data.email, data.password)
-            const token = makeToken();
-            await SaveEmailToken(data.email, token)
-            console.log("Токен сохранен")
-            const { subject, text, html} = emailTemplate;
+            setLoading(true)
             const protocol = window.location.protocol;
             const host = window.location.hostname;
-            const ref = `${protocol}//${host}/email_verify?token=${token}`;
-            await SendMail("", data.email, subject, text+"\n"+ref, html);
-            console.log(`Письмо успешно отправлено на домен: ${data.email.split("@")[1]}`);
+            const callbackUrl = `${protocol}//${host}/email_verify?token=`;
+            await Register(data.email, data.password, callbackUrl)
             setRegisteredEmail(data.email)
             setRegisterSucceeded(true);
+            setLoading(false)
         }
         catch (e) {
             console.error(e);
+            setLoading(false)
         }
     }
 
@@ -126,7 +120,9 @@ const RegisterForm = ({ onSwitchToLogin }) => {
 
                 </div>
                 <div className='auth-buttons'>
-                    <button className='form-btn' type='submit' onClick={validate}>Отправить код</button>
+                    <button className='form-btn' type='submit' onClick={validate}>
+                        {loading ? <DotLottieReact src={}> : "Отправить код"}
+                    </button>
                 </div>
             </div>
         </form>
