@@ -3,9 +3,16 @@ import { Register } from "../../../api/auth/auth"
 import "../../../styles/register.css";
 import "../../../styles/auth.css"
 import "../../../styles/errors.css"
+import "../../../styles/animations/loading.css"
 import React, {useRef, useState} from "react";
 import EmailVerificationModal from "./sub/EmailVerficationModal";
-import {DotLottieReact} from "@lottiefiles/dotlottie-react";
+
+const AnimatedLoadingIcon = () => {
+    return (<div className='cntr'>
+        <img className='loads' src="/assets/svg/BlackLoading.svg" alt="loading" />
+    </div>)
+
+}
 
 const RegisterForm = ({ onSwitchToLogin }) => {
     const minPasswordLength = 8;
@@ -25,10 +32,11 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             await Register(data.email, data.password, callbackUrl)
             setRegisteredEmail(data.email)
             setRegisterSucceeded(true);
-            setLoading(false)
         }
         catch (e) {
             console.error(e);
+        }
+        finally {
             setLoading(false)
         }
     }
@@ -120,8 +128,8 @@ const RegisterForm = ({ onSwitchToLogin }) => {
 
                 </div>
                 <div className='auth-buttons'>
-                    <button className='form-btn' type='submit' onClick={validate}>
-                        {loading ? <DotLottieReact src={}> : "Отправить код"}
+                    <button className='form-btn' disabled={loading} type='submit' onClick={validate}>
+                        {loading ? <AnimatedLoadingIcon/> : "Отправить код"}
                     </button>
                 </div>
             </div>
@@ -129,4 +137,4 @@ const RegisterForm = ({ onSwitchToLogin }) => {
     );
 };
 
-export default RegisterForm
+export default RegisterForm;

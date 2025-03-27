@@ -1,7 +1,7 @@
 import LoginForm from "./models/LoginModal";
 import RegisterForm from "./models/RegisterModal";
 import {useState} from "react";
-
+import React from "react"
 
 const AuthModal = () => {
     const [currentForm, setCurrentForm] = useState('login');

@@ -1,4 +1,5 @@
 import "../styles/idIcon.css"
+import React from "react"
 
 const IDIcon = () => {
     return (

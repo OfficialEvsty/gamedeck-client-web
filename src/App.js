@@ -1,3 +1,4 @@
+import React from "react"
 import './App.css';
 import '../src/fonts/stylesheet.css'
 import PageNotFound from './pages/PageNotFound';
