@@ -1,14 +1,16 @@
 import '../../../styles/login.css'
 import '../../../styles/auth.css'
+import httpCodeErrors from '../../../templates/errors/http/login.json'
 import IDIcon from "../../IdIcon";
 import { useForm } from 'react-hook-form'
 import React, {useRef, useState} from "react";
 import {useAuth} from "../../../storage/AuthContext"
 import { Login } from "../../../api/auth/auth"
 import { useNavigate } from "react-router-dom"
+import {grpcToHttpCodes} from "../../../libs/grpcToHttpCodes";
 
 const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
-    const { register, handleSubmit, setValue, formState: {errors} } = useForm();
+    const { register, handleSubmit, setError, setValue, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [animate, setAnimate] = useState(false);
     const { setAccessToken } = useAuth();
@@ -30,8 +32,13 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
                 navigate("/", {replace: true})
             }
         }
-        catch (error) {
-            console.log(error);
+        catch (grpcError) {
+            const type = 'root.serverError';
+            httpCodeErrors.forEach(err => {
+                if (grpcToHttpCodes(grpcError.code) === err.code) {
+                    setError(type, {type: type, message: err.message});
+                }
+            })
         }
     }
 
@@ -67,11 +74,11 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
                     <p className='login-title'>Войдите в систему</p>
                 </div>
                 <div className='auth-inputs'>
-                    <div className='input-group' onClick={ () => onInputGroupClick (0)} ref={containerRefs.current[0]} key='0'>
+                    <div className={"input-group " + (errors.email ? 'err' : '')} onClick={ () => onInputGroupClick (0)} ref={containerRefs.current[0]} key='0'>
                         <div className={`overlay${animate ? ' input-error' : ''}`}/>
                         <input id='login' type='text' placeholder=' ' className='auth-input truncate' {...register('email', {
                             required: true,
-                            pattern: {value: /^\S+@\S+$/i}
+                            pattern: {value: /^\S+@\S+$/i, message: 'Введите корректный ардес электронной почты'}
                         })}/>
                         <label htmlFor='login' className='placeholder'>Введите email</label>
                         <button className='btn cncl-icon' onClick={clearLoginInput} type='button'>
@@ -79,11 +86,11 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
                         </button>
                     </div>
 
-                    <div className='input-group' onClick={ () => onInputGroupClick(1) } ref={containerRefs.current[1]} key='1'>
+                    <div className={"input-group " + (errors.password ? 'err' : '')} onClick={ () => onInputGroupClick(1) } ref={containerRefs.current[1]} key='1'>
                         <div className={`overlay${animate ? ' input-error' : ''}`}/>
                         <input id='password' type={passwordVisible ? 'text' : 'password'} placeholder=' ' className='auth-input truncate' {...register('password', {
                             required: true,
-                            minLength: {value: 8}
+                            minLength: {value: 8, message: 'Минимальная длина пароля 8 символов'}
                         })}/>
                         <label htmlFor='password' className='placeholder'>Введите пароль</label>
                         <button id="togglePassword" type='button' onClick={ togglePasswordVisibility } className='btn reveal-pass'>
@@ -92,7 +99,9 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
                                  className="hidden"/>
                         </button>
                     </div>
-
+                    {errors.email && <span className="err-msg">{errors.email.message}</span>}
+                    {errors.password && <span className="err-msg">{errors.password.message}</span>}
+                    {errors.root?.serverError && <span className="err-msg">{errors.root?.serverError.message}</span>}
                 </div>
                 <div className='auth-buttons'>
                     <button className='form-btn login' onClick={validate} type='submit'>Войти</button>

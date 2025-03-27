@@ -4,8 +4,10 @@ import "../../../styles/register.css";
 import "../../../styles/auth.css"
 import "../../../styles/errors.css"
 import "../../../styles/animations/loading.css"
+import httpCodes from "../../../templates/errors/http/register.json"
 import React, {useRef, useState} from "react";
 import EmailVerificationModal from "./sub/EmailVerficationModal";
+import {grpcToHttpCodes} from "../../../libs/grpcToHttpCodes";
 
 const AnimatedLoadingIcon = () => {
     return (<div className='cntr'>
@@ -16,7 +18,7 @@ const AnimatedLoadingIcon = () => {
 
 const RegisterForm = ({ onSwitchToLogin }) => {
     const minPasswordLength = 8;
-    const { register, handleSubmit, setValue, watch, formState: {errors} } = useForm();
+    const { register, handleSubmit, setError, setValue, watch, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [registerSucceeded, setRegisterSucceeded] = useState(false);
     const [registeredEmail, setRegisteredEmail] = useState("");
@@ -33,8 +35,13 @@ const RegisterForm = ({ onSwitchToLogin }) => {
             setRegisteredEmail(data.email)
             setRegisterSucceeded(true);
         }
-        catch (e) {
-            console.error(e);
+        catch (grpcError) {
+            const type = 'root.serverError';
+            httpCodes.forEach(error => {
+                if (grpcToHttpCodes(grpcError.code) === error.code) {
+                    setError(type, {type: type, message: error.message});
+                }
+            })
         }
         finally {
             setLoading(false)
@@ -125,7 +132,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
                     {errors.email && <span className="err-msg">{errors.email.message}</span>}
                     {errors.passwordConfirm && <span className="err-msg">{errors.passwordConfirm.message}</span>}
                     {errors.password && <span className="err-msg">{errors.password.message}</span>}
-
+                    {errors.root?.serverError && <span className="err-msg">{errors.root?.serverError.message}</span>}
                 </div>
                 <div className='auth-buttons'>
                     <button className='form-btn' disabled={loading} type='submit' onClick={validate}>
