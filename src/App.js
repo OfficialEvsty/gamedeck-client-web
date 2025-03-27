@@ -11,6 +11,15 @@ import Login from './pages/Login';
 import RegisterForm from "./components/auth/models/RegisterModal";
 import RegisteredNotification from "./components/auth/models/sub/RegisteredNotification";
 
+// Блокируем WebSocket глобально
+window.WebSocket = class MockSocket {
+    constructor() {
+        console.warn('WebSocket disabled');
+    }
+    send() {}
+    close() {}
+};
+
 function App() {
   return (
       <Router>

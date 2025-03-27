@@ -13,14 +13,10 @@ const RegisteredNotification = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await VerifyEmail(tokenToVerify);
-                if (!response.ok) {
-                    setRegistrationError(true);
-                    console.log("registration error: " + response.status);
-                }
+                await VerifyEmail(tokenToVerify);
             } catch (err){
                 console.log(err);
-                setRegistrationError(true);
+                if (err.code === 13 || err.code === 3) {setRegistrationError(true);}
             } finally {
                 //setLoading(false);
             }

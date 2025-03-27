@@ -15,7 +15,6 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.20.1",
     "react-scripts": "^5.0.1",
-    "webpack-dev-middleware": "^5.3.4",
     "xhr2": "^0.2.1"
   },
   "scripts": {
@@ -44,7 +43,6 @@
   },
   "devDependencies": {
     "@svgr/plugin-svgo": "^8.1.0",
-    "@svgr/webpack": "^8.1.0",
     "cross-env": "^7.0.3",
     "postcss": "^8.5.3",
     "resolve-url-loader": "^5.0.0",
