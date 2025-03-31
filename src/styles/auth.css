@@ -62,12 +62,15 @@ div>.close-button {
 }
 
 .info-block {
-    text-align: justify;
     display: flex;
     background-color: #1C1C1C;
     gap: 12px;
     padding: 16px;
     border-radius: 24px;
+}
+
+.info-icon {
+    display: block;
 }
 
 .info-msg {

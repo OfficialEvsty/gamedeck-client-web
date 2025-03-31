@@ -76,7 +76,7 @@ const   EmailVerificationForm = ({ registeredEmail, onSwitchToLogin }) => {
                 <div className='info-body'>
                     <span className='info-block'>
                         <span>
-                            <img src='/assets/svg/info-icon.svg' alt='Информация'></img>
+                            <img className='info-icon' src='/assets/svg/info-icon.svg' alt='Информация'></img>
                         </span>
                         <span className='info-msg'>На почту {registeredEmail} было отправлено письмо со ссылкой для подтвеждения аккаунта</span>
                     </span>
