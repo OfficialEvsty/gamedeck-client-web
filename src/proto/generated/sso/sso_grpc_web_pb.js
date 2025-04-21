@@ -77,6 +77,128 @@ proto.auth.AuthServicePromiseClient =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
+ *   !proto.auth.AuthorizeRequest,
+ *   !proto.auth.AuthorizeResponse>}
+ */
+const methodDescriptor_AuthService_Authorize = new grpc.web.MethodDescriptor(
+  '/auth.AuthService/Authorize',
+  grpc.web.MethodType.UNARY,
+  proto.auth.AuthorizeRequest,
+  proto.auth.AuthorizeResponse,
+  /**
+   * @param {!proto.auth.AuthorizeRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.auth.AuthorizeResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.auth.AuthorizeRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.auth.AuthorizeResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.auth.AuthorizeResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.auth.AuthServiceClient.prototype.authorize =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/auth.AuthService/Authorize',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Authorize,
+      callback);
+};
+
+
+/**
+ * @param {!proto.auth.AuthorizeRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.auth.AuthorizeResponse>}
+ *     Promise that resolves to the response
+ */
+proto.auth.AuthServicePromiseClient.prototype.authorize =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/auth.AuthService/Authorize',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Authorize);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.auth.TokenRequest,
+ *   !proto.auth.TokenResponse>}
+ */
+const methodDescriptor_AuthService_Token = new grpc.web.MethodDescriptor(
+  '/auth.AuthService/Token',
+  grpc.web.MethodType.UNARY,
+  proto.auth.TokenRequest,
+  proto.auth.TokenResponse,
+  /**
+   * @param {!proto.auth.TokenRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.auth.TokenResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.auth.TokenRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.auth.TokenResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.auth.TokenResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.auth.AuthServiceClient.prototype.token =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/auth.AuthService/Token',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Token,
+      callback);
+};
+
+
+/**
+ * @param {!proto.auth.TokenRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.auth.TokenResponse>}
+ *     Promise that resolves to the response
+ */
+proto.auth.AuthServicePromiseClient.prototype.token =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/auth.AuthService/Token',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Token);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
  *   !proto.auth.RegisterRequest,
  *   !proto.auth.RegisterResponse>}
  */
@@ -898,6 +1020,67 @@ proto.auth.VerificationServicePromiseClient.prototype.verifyEmail =
       request,
       metadata || {},
       methodDescriptor_VerificationService_VerifyEmail);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.auth.GetJwksRequest,
+ *   !proto.auth.GetJwksResponse>}
+ */
+const methodDescriptor_VerificationService_GetJwks = new grpc.web.MethodDescriptor(
+  '/auth.VerificationService/GetJwks',
+  grpc.web.MethodType.UNARY,
+  proto.auth.GetJwksRequest,
+  proto.auth.GetJwksResponse,
+  /**
+   * @param {!proto.auth.GetJwksRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.auth.GetJwksResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.auth.GetJwksRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.auth.GetJwksResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.auth.GetJwksResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.auth.VerificationServiceClient.prototype.getJwks =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/auth.VerificationService/GetJwks',
+      request,
+      metadata || {},
+      methodDescriptor_VerificationService_GetJwks,
+      callback);
+};
+
+
+/**
+ * @param {!proto.auth.GetJwksRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.auth.GetJwksResponse>}
+ *     Promise that resolves to the response
+ */
+proto.auth.VerificationServicePromiseClient.prototype.getJwks =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/auth.VerificationService/GetJwks',
+      request,
+      metadata || {},
+      methodDescriptor_VerificationService_GetJwks);
 };
 
 

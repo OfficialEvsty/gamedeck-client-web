@@ -1,12 +1,66 @@
 const { AuthServiceClient } = require('../../proto/generated/sso/sso_grpc_web_pb.js');
-const { RegisterRequest, LoginRequest,  RefreshTokenRequest, LogoutAllRequest, IsAdminRequest} = require('../../proto/generated/sso/sso_pb.js');
+const { RegisterRequest, LoginRequest,  RefreshTokenRequest, LogoutAllRequest,
+    AuthorizeRequest, TokenRequest, AuthorizationCodeGrant, RefreshTokenGrant} = require('../../proto/generated/sso/sso_pb.js');
 
 //const protocol = window.location.protocol;
 //const host = window.location.hostname;
 //const ref = `${protocol}//${host}`;
 
 // Auth client to communicate with sso auth service
-export const authClient = new AuthServiceClient('https://teamspot.online/sso', null, null);
+export const authClient = new AuthServiceClient('https://id.umaiden.ru/sso', null, null);
+
+// Creates an authorize request
+export const authorizeRequest = (clientID, responseType, scope, redirectUri, state, codeChallenge, codeChallengeMethod) => {
+    const request = new AuthorizeRequest();
+    request.setClientId(clientID)
+    request.setResponseType(responseType)
+    request.setScope(scope);
+    request.setRedirectUri(redirectUri);
+    request.setState(state)
+    request.setCodeChallenge(codeChallenge)
+    request.setCodeChallengeMethod(codeChallengeMethod)
+}
+
+// Creates a token request [Authorization Code Grant]
+export const tokenAuthorizationCodeGrant = (authCode, redirectUri, codeVerifier, clientID) => {
+    const request = new TokenRequest();
+    const authCodeGrant = new AuthorizationCodeGrant()
+    authCodeGrant.setClientId(clientID)
+    authCodeGrant.setRedirectUri(redirectUri)
+    authCodeGrant.setCodeVerifier(codeVerifier)
+    authCodeGrant.setAuthCode(authCode)
+    request.setAuthorizationCode(authCode)
+    return request;
+}
+
+// Creates a token request [Refresh Token Grant]
+export const tokenRefreshTokenGrant = (refreshToken, clientID, clientSecret) => {
+    const request = new TokenRequest();
+    const refreshTokenGrant = new RefreshTokenGrant()
+    refreshTokenGrant.setClientId(clientID)
+    refreshTokenGrant.setClientSecret(clientSecret)
+    refreshTokenGrant.setRefreshToken(refreshToken)
+    request.setRefreshToken(refreshTokenGrant)
+    return request;
+}
+
+export const Authorize = (clientID, responseType, scope, redirectUri, state, codeChallenge, codeChallengeMethod) => {
+    return new Promise((resolve, reject) => {
+        const request = new authorizeRequest(clientID, responseType, scope, redirectUri, state, codeChallenge, codeChallengeMethod)
+        const metadata = { 'Content-Type': 'application/x-www-form-urlencoded'};
+        authClient.authorize(request, metadata, (err, response) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+            }
+            else {
+                console.log('Authorize authorized successfully.');
+                resolve(response);
+            }
+        })
+    })
+
+}
 
 // Creates a register request
 export const registerRequest = (email, password, callbackUrl) => {

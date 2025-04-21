@@ -84,6 +84,33 @@ static_resources:
                   - name: envoy.filters.http.cors
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.cors.v3.Cors
+                  - name: envoy.filters.http.header_to_metadata
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.header_to_metadata.v3.Config
+                      request_rules:
+                        - header: "cookie"
+                          on_header_present:
+                            metadata_namespace: "envoy.filters.http.session"
+                            key: "session_cookie"
+                            type: STRING
+                            regex_value_rewrite:
+                              pattern:
+                                google_re2: {}
+                                regex: ".*session=([^;]+).*"
+                              substitution: "\1"
+                        - header: "x-forwarded-for"
+                          on_header_present:
+                            metadata_namespace: "envoy.lb"
+                            key: "client_ip"
+                          type: STRING
+                  - name: envoy.filters.http.metadata_to_header
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.metadata_to_header.v3.Config
+                      response_rules:
+                        - metadata_namespace: "envoy.filters.http.session"
+                          key: "new_session"
+                          header: "set-cookie"
+                          value: "session={}; HttpOnly; Path=/; Secure; SameSite=Lax"
                   - name: envoy.filters.http.lua
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
