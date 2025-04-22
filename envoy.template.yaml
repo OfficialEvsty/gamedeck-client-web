@@ -55,22 +55,22 @@ static_resources:
                         max_age: "86400"
                       routes:
                         - match:
-                            path: "/oauth/authorize"
+                            prefix: "/auth.authorize"
                             headers:
                               - name: "Content-Type"
-                                exact_match: "application/x-www-form-urlencoded"
-                            route:
-                              cluster: sso_grpc_server
-                              prefix_rewrite: "/auth.AuthService/Authorize"
+                                exact_match: "application/json"
+                          route:
+                            cluster: grpc_service
+                            prefix_rewrite: "/auth.AuthService/Authorize"
 
                         # /oauth/token endpoint
                         - match:
-                            path: "/oauth/token"
+                            prefix: "/auth.token"
                             headers:
                               - name: "Content-Type"
-                                exact_match: "application/x-www-form-urlencoded"
+                                exact_match: "application/json"
                           route:
-                            cluster: sso_grpc_server
+                            cluster: grpc_service
                             prefix_rewrite: "/auth.AuthService/Token"
                         - match:
                             prefix: "/sso"
@@ -101,6 +101,11 @@ static_resources:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder
                       proto_descriptor: "/etc/envoy/sso_descriptor.pb"
                       services: [ "auth.AuthService", "auth.VerificationService" ]
+                      print_options:
+                        add_whitespace: true
+                        always_print_primitive_fields: true
+                        always_print_enums_as_ints: false
+                        preserve_proto_field_names: false
                       request_validation_options:
                         reject_unknown_method: true
                         reject_unknown_query_parameters: false
@@ -108,8 +113,6 @@ static_resources:
                       query_param_unescape_spec:
                         unescape_all: true
                       url_unescape_spec: ALL_CHARACTERS_EXCEPT_RESERVED
-                      ignore_query_parameters:
-                        - "access_token"
                   - name: envoy.filters.http.grpc_web
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb
@@ -134,15 +137,6 @@ static_resources:
                           on_header_present:
                             metadata_namespace: "envoy.lb"
                             key: "client_ip"
-                          type: STRING
-                  - name: envoy.filters.http.metadata_to_header
-                    typed_config:
-                      "@type": type.googleapis.com/envoy.extensions.filters.http.metadata_to_header.v3.Config
-                      response_rules:
-                        - metadata_namespace: "envoy.filters.http.session"
-                          key: "new_session"
-                          header: "set-cookie"
-                          value: "session={}; HttpOnly; Path=/; Secure; SameSite=Lax"
                   - name: envoy.filters.http.lua
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
@@ -160,7 +154,7 @@ static_resources:
                           local new_session = response_handle:headers():get("new_session")
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
                           if new_session then
-                            response_handle:logInfo("New session found: " + .. new_session)
+                            response_handle:logInfo("New session found: " .. new_session)
                             response_handle:headers():add("set-cookie", "session=" .. new_session .. "; HttpOnly; Path=/; Secure; SameSite=Lax; Expires=" .. expires)
                           end
                         end

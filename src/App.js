@@ -31,7 +31,7 @@ function App() {
                   element={<Home />}
               ></Route>
               <Route path="*" element={ <PageNotFound/> } />
-              <Route path="/oauth" element={ <Login/> } />
+              <Route path="/auth" element={ <Login/> } />
               <Route path="/register" element={ <RegisterForm /> } />
               <Route path="/email_verify" element={ <RegisteredNotification/> }/>
             </Routes>
