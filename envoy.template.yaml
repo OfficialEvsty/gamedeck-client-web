@@ -55,23 +55,17 @@ static_resources:
                         max_age: "86400"
                       routes:
                         - match:
-                            prefix: "/auth.authorize"
-                            headers:
-                              - name: "Content-Type"
-                                exact_match: "application/json"
+                            prefix: "/authorize"
                           route:
                             cluster: grpc_service
-                            prefix_rewrite: "/auth.AuthService/Authorize"
+                            timeout: 1s
 
                         # /oauth/token endpoint
                         - match:
-                            prefix: "/auth.token"
-                            headers:
-                              - name: "Content-Type"
-                                exact_match: "application/json"
+                            prefix: "/token"
                           route:
                             cluster: grpc_service
-                            prefix_rewrite: "/auth.AuthService/Token"
+                            timeout: 1s
                         - match:
                             prefix: "/sso"
                           route:
@@ -99,19 +93,15 @@ static_resources:
                   - name: envoy.filters.http.grpc_json_transcoder
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder
-                      proto_descriptor: "/etc/envoy/sso_descriptor.pb"
-                      services: [ "auth.AuthService", "auth.VerificationService" ]
+                      proto_descriptor: etc/envoy/gateway.pb
+                      services:
+                        - auth.AuthService
+                        - auth.VerificationService
                       print_options:
                         add_whitespace: true
                         always_print_primitive_fields: true
                         always_print_enums_as_ints: false
                         preserve_proto_field_names: false
-                      request_validation_options:
-                        reject_unknown_method: true
-                        reject_unknown_query_parameters: false
-                      convert_grpc_status: true
-                      query_param_unescape_spec:
-                        unescape_all: true
                       url_unescape_spec: ALL_CHARACTERS_EXCEPT_RESERVED
                   - name: envoy.filters.http.grpc_web
                     typed_config:

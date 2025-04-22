@@ -20,4 +20,4 @@ tasks:
       - genpb
     desc: "Generate .pb"
     cmds:
-      - protoc --descriptor_set_out=sso_descriptor.pb --include_imports --proto_path=src/proto/contracts/sso sso.proto
+      - protoc --descriptor_set_out=src/proto/generated/gateway.pb --include_imports --proto_path=src/proto/contracts/sso sso.proto

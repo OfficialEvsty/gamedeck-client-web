@@ -39,7 +39,7 @@ services:
     volumes:
       - ./envoy.template.yaml:/etc/envoy/envoy.template.yaml
       - certs:/var/lib/letsencrypt:ro
-      - ./src/proto/generated/sso_descriptor.pb:/etc/envoy/sso_descriptor.pb
+      - ./src/proto/generated/gateway.pb:/etc/envoy/gateway.pb
     depends_on:
       - certbot
   web:

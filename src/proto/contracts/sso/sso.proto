@@ -3,11 +3,22 @@ syntax = "proto3";
 package auth;
 
 option go_package = "authmod.sso.v1;ssov1";
+import "google/api/annotations.proto";
 
 service AuthService {
   //oauth2.1
-  rpc Authorize (AuthorizeRequest) returns (AuthorizeResponse);
-  rpc Token (TokenRequest) returns (TokenResponse);
+  rpc Authorize (AuthorizeRequest) returns (AuthorizeResponse) {
+    option (google.api.http) = {
+      post: "/authorize"
+      body: "*"
+    };
+  }
+  rpc Token (TokenRequest) returns (TokenResponse) {
+    option (google.api.http) = {
+      post: "/token"
+      body: "*"
+    };
+  }
   //auth
   rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
@@ -47,7 +58,11 @@ service VerificationService {
 
   rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse);
 
-  rpc GetJwks(GetJwksRequest) returns (GetJwksResponse);
+  rpc GetJwks(GetJwksRequest) returns (GetJwksResponse) {
+    option (google.api.http) = {
+      get: "/jwks"
+    };
+  }
 }
 
 //OAUTH2.1
