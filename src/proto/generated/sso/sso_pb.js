@@ -1,4 +1,5 @@
 // source: sso.proto
+/* eslint-disable */
 /**
  * @fileoverview
  * @enhanceable

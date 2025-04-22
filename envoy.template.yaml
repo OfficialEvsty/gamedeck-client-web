@@ -9,9 +9,9 @@ static_resources:
     - name: server_cert
       tls_certificate:
         certificate_chain:
-          filename: /var/lib/letsencrypt/live/teamspot.online/fullchain.pem
+          filename: /var/lib/letsencrypt/live/id.umaiden.ru/fullchain.pem
         private_key:
-          filename: /var/lib/letsencrypt/live/teamspot.online/privkey.pem
+          filename: /var/lib/letsencrypt/live/id.umaiden.ru/privkey.pem
   listeners:
     - name: listener_0
       address:
@@ -55,6 +55,24 @@ static_resources:
                         max_age: "86400"
                       routes:
                         - match:
+                            path: "/oauth/authorize"
+                            headers:
+                              - name: "Content-Type"
+                                exact_match: "application/x-www-form-urlencoded"
+                            route:
+                              cluster: sso_grpc_server
+                              prefix_rewrite: "/auth.AuthService/Authorize"
+
+                        # /oauth/token endpoint
+                        - match:
+                            path: "/oauth/token"
+                            headers:
+                              - name: "Content-Type"
+                                exact_match: "application/x-www-form-urlencoded"
+                          route:
+                            cluster: sso_grpc_server
+                            prefix_rewrite: "/auth.AuthService/Token"
+                        - match:
                             prefix: "/sso"
                           route:
                             regex_rewrite:
@@ -78,6 +96,20 @@ static_resources:
                             cluster: web_client
                             timeout: 0s
                 http_filters:
+                  - name: envoy.filters.http.grpc_json_transcoder
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder
+                      proto_descriptor: "/etc/envoy/sso_descriptor.pb"
+                      services: [ "auth.AuthService", "auth.VerificationService" ]
+                      request_validation_options:
+                        reject_unknown_method: true
+                        reject_unknown_query_parameters: false
+                      convert_grpc_status: true
+                      query_param_unescape_spec:
+                        unescape_all: true
+                      url_unescape_spec: ALL_CHARACTERS_EXCEPT_RESERVED
+                      ignore_query_parameters:
+                        - "access_token"
                   - name: envoy.filters.http.grpc_web
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb
@@ -97,7 +129,7 @@ static_resources:
                               pattern:
                                 google_re2: {}
                                 regex: ".*session=([^;]+).*"
-                              substitution: "\1"
+                              substitution: "\\1"
                         - header: "x-forwarded-for"
                           on_header_present:
                             metadata_namespace: "envoy.lb"
@@ -124,7 +156,15 @@ static_resources:
                           else
                             response_handle:logWarn("No refresh token found in headers")
                           end
+                          
+                          local new_session = response_handle:headers():get("new_session")
+                          local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
+                          if new_session then
+                            response_handle:logInfo("New session found: " + .. new_session)
+                            response_handle:headers():add("set-cookie", "session=" .. new_session .. "; HttpOnly; Path=/; Secure; SameSite=Lax; Expires=" .. expires)
+                          end
                         end
+
                   - name: envoy.filters.http.router
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router

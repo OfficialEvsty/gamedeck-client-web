@@ -139,9 +139,3 @@ export const refreshTokenRequest = (appId, refresh) => {
     request.setRefreshToken(refresh);
     return request;
 }
-
-export const isAdminRequest = (userId) => {
-    const request = new IsAdminRequest();
-    request.setUserId(userId);
-    return request;
-}

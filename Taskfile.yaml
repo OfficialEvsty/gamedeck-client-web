@@ -15,3 +15,9 @@ tasks:
     desc: "Generate code from proto files"
     cmds:
       - protoc -I=src/proto/contracts/mailer src/proto/contracts/mailer/*.proto --js_out=import_style=commonjs,binary:src/proto/generated/mailer --grpc-web_out=import_style=commonjs,mode=grpcwebtext:src/proto/generated/mailer
+  generatePB:
+    aliases:
+      - genpb
+    desc: "Generate .pb"
+    cmds:
+      - protoc --descriptor_set_out=sso_descriptor.pb --include_imports --proto_path=src/proto/contracts/sso sso.proto

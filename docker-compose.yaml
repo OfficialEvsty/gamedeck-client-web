@@ -6,7 +6,7 @@ services:
     volumes:
       - certs:/etc/letsencrypt:rw
       - certs:/var/lib/letsencrypt:rw
-    command: certonly --standalone --agree-tos --non-interactive --email www.www-we2016@mail.ru -d teamspot.online
+    command: certonly --standalone --agree-tos --non-interactive --email www.www-we2016@mail.ru -d id.umaiden.ru
     ports:
       - $CERTBOT_PORT:$CERTBOT_PORT
   renew:
@@ -39,6 +39,7 @@ services:
     volumes:
       - ./envoy.template.yaml:/etc/envoy/envoy.template.yaml
       - certs:/var/lib/letsencrypt:ro
+      - ./src/proto/generated/sso_descriptor.pb:/etc/envoy/sso_descriptor.pb
     depends_on:
       - certbot
   web:
