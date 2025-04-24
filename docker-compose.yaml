@@ -6,7 +6,7 @@ services:
     volumes:
       - certs:/etc/letsencrypt:rw
       - certs:/var/lib/letsencrypt:rw
-    command: certonly --standalone --agree-tos --non-interactive --email www.www-we2016@mail.ru -d id.umaiden.ru
+    command: certonly --standalone --agree-tos --non-interactive --email www.www-we2016@mail.ru -d *.umaiden.ru
     ports:
       - $CERTBOT_PORT:$CERTBOT_PORT
   renew:
@@ -29,6 +29,9 @@ services:
       PRIVATE_KEY_FILENAME_PATH: $PRIVATE_KEY_FILENAME_PATH
       BACKEND_DOMAIN: $BACKEND_DOMAIN
       DOMAIN: $DOMAIN
+      APP_DOMAIN: $APP_DOMAIN
+      APP_HOST: $APP_HOST
+      APP_PORT: $APP_PORT
       CERTBOT_PORT: $CERTBOT_PORT
     env_file:
       - .env
