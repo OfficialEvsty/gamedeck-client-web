@@ -6,7 +6,8 @@ services:
     volumes:
       - certs:/etc/letsencrypt:rw
       - certs:/var/lib/letsencrypt:rw
-    command: certonly --standalone --agree-tos --non-interactive --email www.www-we2016@mail.ru -d *.umaiden.ru
+      - ./regru.ini:/regru.ini
+    command: certbot/dns-regru certonly --dns-regru-credentials /regru.ini --dns-regru-propagation 60 --server https://acme-v02.api.letsencrypt.org/directory --agree-tos --email www.www-we2016@mail.ru -d *.umaiden.ru -d umaiden.ru
     ports:
       - $CERTBOT_PORT:$CERTBOT_PORT
   renew:
