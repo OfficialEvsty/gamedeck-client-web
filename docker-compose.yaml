@@ -1,22 +1,29 @@
 version: '3'
 services:
   certbot:
-    image: certbot/certbot:latest
+    build:
+      context: .
+      dockerfile: certbot.Dockerfile
     container_name: certbot
     volumes:
       - certs:/etc/letsencrypt:rw
       - certs:/var/lib/letsencrypt:rw
-      - ./regru.ini:/regru.ini
-    command: certbot/dns-regru certonly --dns-regru-credentials /regru.ini --dns-regru-propagation 60 --server https://acme-v02.api.letsencrypt.org/directory --agree-tos --email www.www-we2016@mail.ru -d *.umaiden.ru -d umaiden.ru
+      - certs:/var/cloudflare.ini
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      APP_DOMAIN: $APP_DOMAIN
+      DOMAIN: $DOMAIN
+      OTHER_LEVEL_DOMAINS: $OTHER_LEVEL_DOMAINS
+      EMAIL: $EMAIL
+    healthcheck:
+      test: [ "CMD-SHELL", "[ -f /etc/letsencrypt/live/umaiden.ru/fullchain.pem ]" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     ports:
       - $CERTBOT_PORT:$CERTBOT_PORT
-  renew:
-    image: certbot/dns-cloudflare
-    container_name: certbot-renew
-    volumes:
-      - certs:/etc/letsencrypt:rw
-      - certs:/var/lib/letsencrypt:rw
-    entrypoint: "/bin/sh -c 'while :; do certbot renew --dns-cloudflare --dns-cloudflare-credentials /cfg/cloudflare.ini; sleep 12h; done'"
 
   envoy:
     build:
@@ -45,7 +52,8 @@ services:
       - certs:/var/lib/letsencrypt:ro
       - ./src/proto/generated/gateway.pb:/etc/envoy/gateway.pb
     depends_on:
-      - certbot
+      certbot:
+        condition: service_healthy
   web:
     build:
       context: .

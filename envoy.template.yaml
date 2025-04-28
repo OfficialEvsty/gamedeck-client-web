@@ -9,9 +9,9 @@ static_resources:
     - name: server_cert
       tls_certificate:
         certificate_chain:
-          filename: /var/lib/letsencrypt/live/id.umaiden.ru/fullchain.pem
+          filename: /var/lib/letsencrypt/live/umaiden.ru/fullchain.pem
         private_key:
-          filename: /var/lib/letsencrypt/live/id.umaiden.ru/privkey.pem
+          filename: /var/lib/letsencrypt/live/umaiden.ru/privkey.pem
   listeners:
     - name: listener_0
       address:
