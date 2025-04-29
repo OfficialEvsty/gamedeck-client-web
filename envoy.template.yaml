@@ -43,21 +43,6 @@ static_resources:
                 route_config:
                   name: local_route
                   virtual_hosts:
-                    - name: app
-                      domains: [${APP_DOMAIN}]
-                      cors:
-                        allow_origin_string_match:
-                          - prefix: "*"
-                        allow_methods: "POST, GET, OPTIONS"
-                        allow_credentials: true
-                        allow_headers: "Content-Type, Authorization, x-user-agent, cookie, x-forwarded-for"
-                        max_age: "86400"
-                      routes:
-                        - match:
-                            prefix: "/"
-                          route:
-                            cluster: app_client
-                            timeout: 1s
                     - name: local_service
                       domains: [${DOMAIN}]
                       cors:
@@ -104,6 +89,22 @@ static_resources:
                           route:
                             cluster: web_client
                             timeout: 0s
+                    - name: app
+                      domains: [ ${ APP_DOMAIN } ]
+                      cors:
+                        allow_origin_string_match:
+                          - prefix: "*"
+                        allow_methods: "POST, GET, OPTIONS"
+                        allow_credentials: true
+                        allow_headers: "Content-Type, Authorization, x-user-agent, x-grpc-web, cookie, x-forwarded-for"
+                        expose_headers: "grpc-status, grpc-message"
+                        max_age: "86400"
+                      routes:
+                        - match:
+                            prefix: "/"
+                          route:
+                            cluster: app_client
+                            timeout: 1s
                 http_filters:
                   - name: envoy.filters.http.grpc_json_transcoder
                     typed_config:
