@@ -144,10 +144,11 @@ static_resources:
                           end
 
                           local new_session = response_handle:headers():get("new_session")
+                          local domain = ".${APP_DOMAIN}"
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
                           if new_session then
                             response_handle:logInfo("New session found: " .. new_session)
-                            response_handle:headers():add("set-cookie", "session=" .. new_session .. "; HttpOnly; Path=/; Secure; SameSite=Lax; Expires=" .. expires)
+                            response_handle:headers():add("set-cookie", "session=" .. new_session .. "; Domain=" .. domain .. "; HttpOnly; Path=/; Secure; SameSite=Lax; Expires=" .. expires)
                           end
                           response_handle:logInfo("=== Outgoing Response ===")
                           response_handle:logInfo("Status: " .. response_handle:headers():get(":status"))
