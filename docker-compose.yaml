@@ -45,6 +45,7 @@ services:
       - .env
     networks:
       - web-game-deck
+      - shared-net
     ports:
       - $ENVOY_PORT:$ENVOY_PORT
     volumes:
@@ -77,3 +78,6 @@ volumes:
 networks:
   web-game-deck:
     driver: bridge
+  shared-net:
+    driver: bridge
+    external: true

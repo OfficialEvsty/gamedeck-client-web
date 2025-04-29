@@ -169,6 +169,13 @@ static_resources:
       type: LOGICAL_DNS
       lb_policy: ROUND_ROBIN
       http2_protocol_options: {}
+      health_check:
+        - timeout: 1s
+          interval: 5s
+          unhealthy_threshold: 3
+          healthy_threshold: 1
+          grpc_health_check:
+            service_name: "auth.AuthService"
       load_assignment:
         cluster_name: grpc_service
         endpoints:
@@ -176,7 +183,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: ${GRPC_SERVER_HOST}
+                      address: sso
                       port_value: ${GRPC_SERVER_PORT}
     - name: mail_service
       connect_timeout: 1s
