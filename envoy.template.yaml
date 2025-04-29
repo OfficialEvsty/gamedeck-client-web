@@ -55,14 +55,7 @@ static_resources:
                         max_age: "86400"
                       routes:
                         - match:
-                            prefix: "/authorize"
-                          route:
-                            cluster: grpc_service
-                            timeout: 1s
-
-                        # /oauth/token endpoint
-                        - match:
-                            prefix: "/token"
+                            prefix: "/auth.AuthService/"
                           route:
                             cluster: grpc_service
                             timeout: 1s
@@ -129,6 +122,17 @@ static_resources:
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
                       inline_code: |
+                        function envoy_on_request(request_handle)
+                          request_handle:logInfo("=== Incoming Request ===")
+                          request_handle:logInfo("Method: " .. request_handle:headers():get(":method"))
+                          request_handle:logInfo("Path: " .. request_handle:headers():get(":path"))
+                          request_handle:logInfo("Authority: " .. request_handle:headers():get(":authority"))
+
+                          for key, value in pairs(request_handle:headers()) do
+                            request_handle:logInfo("Header: " .. key .. " => " .. value)
+                          end
+                        end
+
                         function envoy_on_response(response_handle)
                           local refresh_token = response_handle:headers():get("refresh-token")
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
@@ -138,12 +142,18 @@ static_resources:
                           else
                             response_handle:logWarn("No refresh token found in headers")
                           end
-                          
+
                           local new_session = response_handle:headers():get("new_session")
                           local expires = os.date("%a, %d %b %Y %H:%M:%S GMT", os.time() + 86400)
                           if new_session then
                             response_handle:logInfo("New session found: " .. new_session)
                             response_handle:headers():add("set-cookie", "session=" .. new_session .. "; HttpOnly; Path=/; Secure; SameSite=Lax; Expires=" .. expires)
+                          end
+                          response_handle:logInfo("=== Outgoing Response ===")
+                          response_handle:logInfo("Status: " .. response_handle:headers():get(":status"))
+
+                          for key, value in pairs(response_handle:headers()) do
+                            response_handle:logInfo("Response Header: " .. key .. " => " .. value)
                           end
                         end
 
@@ -170,13 +180,6 @@ static_resources:
       type: LOGICAL_DNS
       lb_policy: ROUND_ROBIN
       http2_protocol_options: {}
-      health_check:
-        - timeout: 1s
-          interval: 5s
-          unhealthy_threshold: 3
-          healthy_threshold: 1
-          grpc_health_check:
-            service_name: "auth.AuthService"
       load_assignment:
         cluster_name: grpc_service
         endpoints:
