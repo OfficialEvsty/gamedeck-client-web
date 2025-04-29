@@ -13,9 +13,9 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
     const { register, handleSubmit, setError, setValue, formState: {errors} } = useForm();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [animate, setAnimate] = useState(false);
-    const { setAccessToken } = useAuth();
+    //const { setAccessToken } = useAuth();
     const containerRefs = useRef([React.createRef(), React.createRef()]);
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const validate = () => {
         if (errors.email || errors.password) {
@@ -25,11 +25,12 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
     }
     const onSubmit = async (data) => {
         try {
-            const loginResponse = await Login(data.email, data.password, 1);
+            const loginResponse = await Login(data.email, data.password);
             console.log("Login successful: " + loginResponse);
             if (loginResponse) {
-                setAccessToken(loginResponse.accessToken);
-                navigate("/", {replace: true})
+                // setAccessToken(loginResponse.accessToken);
+                // navigate("/", {replace: true})
+                window.location.href = loginResponse.redirect;
             }
         }
         catch (grpcError) {

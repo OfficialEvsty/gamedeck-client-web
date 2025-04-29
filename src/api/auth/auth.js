@@ -103,9 +103,9 @@ const loginRequest = (email, password, appId) => {
     return request;
 }
 
-export const Login = (email, password, appId) => {
+export const Login = (email, password) => {
     return new Promise((resolve, reject) => {
-        const request = loginRequest(email, password, appId);
+        const request = loginRequest(email, password);
         const metadata = { 'Content-Type': 'application/grpc-web'};
         authClient.login(request, metadata, (err, response) => {
             if (err) {

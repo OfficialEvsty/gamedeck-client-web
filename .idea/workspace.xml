@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b4f4ebe1-b8bc-40f6-90a1-49bf4da1b08c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/envoy.template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/envoy.template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/auth/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/models/LoginModal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
