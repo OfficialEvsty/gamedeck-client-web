@@ -107,7 +107,7 @@ export const Login = (email, password) => {
     return new Promise((resolve, reject) => {
         const request = loginRequest(email, password);
         // todo как то прокидывать куки в grpc web
-        const metadata = { 'Content-Type': 'application/grpc-web', "cookie": ["session="] };
+        const metadata = { 'Content-Type': 'application/grpc-web' };
         authClient.login(request, metadata, (err, response) => {
             if (err) {
                 console.error("Login error: "+ err);

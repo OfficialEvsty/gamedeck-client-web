@@ -38,6 +38,7 @@ const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {
             httpCodeErrors.forEach(err => {
                 if (grpcToHttpCodes(grpcError.code) === err.code) {
                     setError(type, {type: type, message: err.message});
+                    console.log(err.message + ": " + type);
                 }
             })
         }
