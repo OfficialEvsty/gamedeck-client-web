@@ -4,9 +4,7 @@ import httpCodeErrors from '../../../templates/errors/http/login.json'
 import IDIcon from "../../IdIcon";
 import { useForm } from 'react-hook-form'
 import React, {useRef, useState} from "react";
-import {useAuth} from "../../../storage/AuthContext"
 import { Login } from "../../../api/auth/auth"
-import { useNavigate } from "react-router-dom"
 import {grpcToHttpCodes} from "../../../libs/grpcToHttpCodes";
 
 const LoginForm = ( {onSwitchToRegister, onSwitchToForgotPassword} ) => {

@@ -99,7 +99,6 @@ const loginRequest = (email, password, appId) => {
     const request = new LoginRequest();
     request.setEmail(email);
     request.setPassword(password);
-    request.setAppId(appId);
     return request;
 }
 
@@ -119,6 +118,7 @@ export const Login = (email, password) => {
                     resolve(response);
                 }
                 else {
+
                     reject(new Error("No response received"))
                 }
             }
