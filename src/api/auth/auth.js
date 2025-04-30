@@ -7,7 +7,7 @@ const { RegisterRequest, LoginRequest,  RefreshTokenRequest, LogoutAllRequest,
 //const ref = `${protocol}//${host}`;
 
 // Auth client to communicate with sso auth service
-export const authClient = new AuthServiceClient('https://id.umaiden.ru/sso', null, null);
+export const authClient = new AuthServiceClient('https://id.umaiden.ru/sso', null, {withCredentials: true});
 
 // Creates an authorize request
 export const authorizeRequest = (clientID, responseType, scope, redirectUri, state, codeChallenge, codeChallengeMethod) => {
@@ -106,7 +106,8 @@ const loginRequest = (email, password, appId) => {
 export const Login = (email, password) => {
     return new Promise((resolve, reject) => {
         const request = loginRequest(email, password);
-        const metadata = { 'Content-Type': 'application/grpc-web'};
+        // todo как то прокидывать куки в grpc web
+        const metadata = { 'Content-Type': 'application/grpc-web', "cookie": ["session="] };
         authClient.login(request, metadata, (err, response) => {
             if (err) {
                 console.error("Login error: "+ err);
